@@ -1,3 +1,3 @@
 # Crypto balance
 
-Check your crypto's worth
+Check your crypto's worth and smile
