@@ -11,5 +11,12 @@
     "default_popup": "wallets.html",
     "default_title": "Crypto Currencies"
   },
-  "permissions": ["activeTab", "storage"]
+  "permissions": ["activeTab", "storage"],
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["myscript.js"]
+    }
+  ]
 }
