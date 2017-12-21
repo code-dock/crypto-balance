@@ -1,0 +1,14 @@
+{
+  "name": "crypto-balance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/code-dock/crypto-balance.git",
+  "author": "Marcelo Lazaroni <lazaronijunior@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "coinbase": "^2.0.6",
+    "express": "^4.16.2",
+    "fluture": "^7.2.2",
+    "ramda": "^0.25.0"
+  }
+}
