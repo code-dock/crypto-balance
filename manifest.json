@@ -18,5 +18,8 @@
       "matches": ["http://*/*", "https://*/*"],
       "js": ["myScript.js"]
     }
-  ]
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  }
 }
