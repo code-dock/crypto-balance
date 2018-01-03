@@ -30,7 +30,14 @@ function addAccountsToBody(list) {
 
     const myP = document.createElement("p");
 
-    myP.textContent = item.name;
+    myP.textContent =
+      item.balance.amount +
+      " " +
+      item.balance.currency +
+      " : " +
+      item.native_balance.amount +
+      " " +
+      item.native_balance.currency;
     myDiv.appendChild(myP);
     document.querySelector(".wallets").appendChild(myDiv);
   });
