@@ -6,11 +6,17 @@ function parseAsJson(response) {
 
 function addToBody(list) {
     list.forEach(item => {
-        const info = item.data.base + ": " + item.data.amount;
-        document.body.textContent = document.body.textContent + "<br>" + info;
+        const myDiv = document.createElement("div");
+        myDiv.classList.add("wallet-item");
+
+        const myP = document.createElement("p");
+
+        myP.textContent = item.name;
+        myDiv.appendChild(myP);
+        document.querySelector(".wallets").appendChild(myDiv);
     });
 }
 
-fetch("http://localhost:8080/rates")
+fetch("http://localhost:8080/accounts")
     .then(parseAsJson)
     .then(addToBody);
