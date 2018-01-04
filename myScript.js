@@ -4,20 +4,36 @@ function parseAsJson(response) {
   return response.json();
 }
 
+// function drawClass(name, data) {
+//   list.forEach(item => {
+//     const myDiv = document.createElement("div");
+//     const myP = document.createElement("p");
+//
+//     var className = myP.setAttribute("class", name);
+//
+//     myP.textContent = data;
+//     myDiv.appendChild(myP);
+//     document.querySelector(".rates").appendChild(myDiv);
+//   });
+// }
+
 function addRatesToBody(list) {
   list.forEach(item => {
     const myDiv = document.createElement("div");
     myDiv.classList.add("rate-item");
 
     const myP = document.createElement("p");
+    // var className = myP.setAttribute("class", name);
+    // write a function to create and add a class to myP
 
     myP.textContent =
-      "1 " +
       item.data.base +
+      " 1" +
       " : " +
       item.data.amount +
       " " +
       item.data.currency;
+
     myDiv.appendChild(myP);
     document.querySelector(".rates").appendChild(myDiv);
   });
@@ -29,7 +45,6 @@ function addAccountsToBody(list) {
     myDiv.classList.add("wallet-item");
 
     const myP = document.createElement("p");
-
     myP.textContent =
       item.balance.amount +
       " " +

@@ -22,6 +22,28 @@ body {
   position: relative;
 }
 
+.container-inner {
+  padding-left: 15px;
+}
+
+.cell-item {
+  padding: 6px;
+}
+
+.number {
+  padding: 3px 4px;
+  border: 2px solid red;
+  background-color: white;
+}
+
+.currency {
+  color: #555;
+}
+
+.icon {
+  padding: 0 5px;
+}
+
 #header {
   display: block;
   text-align: center;
