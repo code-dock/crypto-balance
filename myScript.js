@@ -4,38 +4,37 @@ function parseAsJson(response) {
   return response.json();
 }
 
-// function drawClass(name, data) {
-//   list.forEach(item => {
-//     const myDiv = document.createElement("div");
-//     const myP = document.createElement("p");
-//
-//     var className = myP.setAttribute("class", name);
-//
-//     myP.textContent = data;
-//     myDiv.appendChild(myP);
-//     document.querySelector(".rates").appendChild(myDiv);
-//   });
-// }
-
 function addRatesToBody(list) {
+  //   list.forEach(item => {
+  //     const myDiv = document.createElement("div");
+  //     myDiv.classList.add("rate-item");
+  //
+  //     const myP = document.createElement("p");
+  //     var className = myP.setAttribute("class", name);
+  //
+  //     myP.textContent =
+  //       item.data.base +
+  //       " 1" +
+  //       " : " +
+  //       item.data.amount +
+  //       " " +
+  //       item.data.currency;
+  //
+  //     myDiv.appendChild(myP);
+  //     document.querySelector(".rates").appendChild(myDiv);
+  //
+  //   });
+  // }
+
   list.forEach(item => {
-    const myDiv = document.createElement("div");
-    myDiv.classList.add("rate-item");
+    const myTabRow = document.createElement("tr");
+    const myNewCell = document.createElement("td");
 
-    const myP = document.createElement("p");
-    // var className = myP.setAttribute("class", name);
-    // write a function to create and add a class to myP
+    myNewCell.textContent = item.data.base;
 
-    myP.textContent =
-      item.data.base +
-      " 1" +
-      " : " +
-      item.data.amount +
-      " " +
-      item.data.currency;
-
-    myDiv.appendChild(myP);
-    document.querySelector(".rates").appendChild(myDiv);
+    myNewCell.setAttribute("class", "cell-item currency base-currency");
+    myTabRow.appendChild(myNewCell);
+    document.querySelector("table").appendChild(myTabRow);
   });
 }
 
