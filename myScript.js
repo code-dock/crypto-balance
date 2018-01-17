@@ -6,26 +6,19 @@ function parseAsJson(response) {
 
 function addRatesToBody(list) {
   list.forEach(item => {
-    const ratesTable = document.querySelector(".rates table");
+    const ratesList = document.querySelector(".rates ul");
 
     // Here we are saying that the table's HTML content is
     // whatever is already there, plus this big string.
     // This means that we are adding content to the end of the table
-    ratesTable.innerHTML =
-      ratesTable.innerHTML +
+    ratesList.innerHTML =
+      ratesList.innerHTML +
       // A backtick like this one here ` means that we are starting a
       // string that will span through multiple lines.
       // Inside this strings, we can make reference to variables by
       // writing them like this ${variableName}
-      `<tr class="table-row">
-                <td class="cell-item currency base-currency">${item.data
-                  .base}</td>
-                <td class="cell-item adjust-number add-border">1</td>
-                <td class="cell-item icon"> ↔ </td>
-                <td class="cell-item fixed-number">${item.data.amount}</td>
-                <td class="cell-item currency native-currency">${item.data
-                  .currency}</td>
-            </tr>`;
+      `<li class="banner-item">${item.data.base} •</li>
+       <li class="banner-item">£${item.data.amount}</li>`;
   });
 }
 
