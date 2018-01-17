@@ -32,7 +32,7 @@ function addRatesToBody(list) {
 function addAccountsToBody(list) {
   list.forEach(item => {
     const walletsTable = document.querySelector(".wallets table");
-    const listLength = 4;
+    const listLength = list.length;
 
     var currencyIcons = ["bch.png", "ltc.png", "eth.jpg", "btc.png"];
     var names = ["Bitcoin Cash", "Litecoin", "Etherium", "Bitcoin"];
@@ -40,19 +40,14 @@ function addAccountsToBody(list) {
       walletsTable.innerHTML =
         walletsTable.innerHTML +
         `<tr class="table-row">
-      <td class="cell-item currency"> <img class="crypto-img" src="${currencyIcons[
-        i
-      ]}" alt=""></td>
-      <td class="cell-item fixed-number">${names[i]}</td>
+            <td class="cell-item icon">
+              <img class="crypto-img" src="${currencyIcons[i]}" alt=""></td>
+            <td class="cell-item">${names[i]}</td>
 
-            <td class="cell-item currency base-currency">${item.balance
-              .currency}</td>
-
-            <td class="cell-item fixed-number">${item.balance.amount}</td>
-            <td class="cell-item fixed-number">${item.native_balance
-              .amount}</td>
-            <td class="cell-item currency native-currency">${item.native_balance
-              .currency}</td>
+            <td class="cell-item balance">
+              ${item.balance.amount}
+              <br> £${item.native_balance.amount}</td>
+            <td class="cell-item"> ↔ </td>
         </tr>`;
     }
   });
