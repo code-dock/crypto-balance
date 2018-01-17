@@ -6,19 +6,21 @@ function parseAsJson(response) {
 
 function addRatesToBody(list) {
   list.forEach(item => {
-    const ratesList = document.querySelector(".rates ul");
+    const ratesTable = document.querySelector(".rates table .table-row");
 
     // Here we are saying that the table's HTML content is
     // whatever is already there, plus this big string.
     // This means that we are adding content to the end of the table
-    ratesList.innerHTML =
-      ratesList.innerHTML +
+    ratesTable.innerHTML =
+      ratesTable.innerHTML +
       // A backtick like this one here ` means that we are starting a
       // string that will span through multiple lines.
       // Inside this strings, we can make reference to variables by
       // writing them like this ${variableName}
-      `<li class="banner-item">${item.data.base} •</li>
-       <li class="banner-item">£${item.data.amount}</li>`;
+      `
+                <td class="cell-item">${item.data.base}•</td>
+                <td class="cell-item">£${item.data.amount}</td>
+            `;
   });
 }
 
@@ -35,12 +37,13 @@ function addAccountsToBody(list) {
         `<tr class="table-row">
             <td class="cell-item icon">
               <img class="crypto-img" src="${currencyIcons[i]}" alt=""></td>
-            <td class="cell-item">${names[i]}</td>
+            <td class="cell-item base-currency name-currency">${names[i]}</td>
 
             <td class="cell-item balance">
-              ${item.balance.amount}
-              <br> £${item.native_balance.amount}</td>
-            <td class="cell-item"> ↔ </td>
+              <text class="base-currency">${item.balance.amount} ${item.balance
+          .currency}</text><br>
+              <text class="native-currency">£${item.native_balance
+                .amount}</text></td>
         </tr>`;
     }
   });

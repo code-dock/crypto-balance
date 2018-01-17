@@ -11,23 +11,26 @@ body {
 
 #wallets-page {
   height: 500px;
-  width: 350px;
+  width: 375px;
 }
 
 .banner-rates {
-  display: inline;
+  /*display: inline;
   position: absolute;
   top: 80px;
-  left: -2px;
+  left: -2px;*/
 }
 
 .table {
+  padding-top: 12px;
+  width: 100%;
   background-color: white;
   border: 1px solid #dae1e9;
   border-radius: 2px;
 }
 
 .brdr-top {
+  border-top: 1px solid #dae1e9;
 }
 
 .brdr-btm {
@@ -40,7 +43,6 @@ body {
 }
 
 .container-inner {
-  padding: 0 9px;
   margin-top: 20px;
 }
 
@@ -57,33 +59,37 @@ body {
 
 .balance {
   text-align: right;
+  padding-right: 15px;
 }
 
-.adjust-number {
-  background-color: white;
-  display: block;
-  padding: 5px;
-  width: 35px;
-  background-color: white;
-  text-align: right;
+.name-currency {
+  font-size: 18px;
 }
 
-.currency {
-  color: #555;
-  padding-left: 2px;
-  padding-right: 10px;
+.base-currency {
+  color: #4e5c6e;
+}
+
+.native-currency {
+  color: #9ba6b2;
+}
+
+.arrows {
+  text-align: center;
+  padding: 0 6px;
 }
 
 .crypto-img {
   display: inline;
   width: 40px;
+  padding: 1px 8px;
 }
 
 #header {
   display: block;
-  text-align: left;
+  text-align: center;
   width: 100%;
-  padding: 1.3em 20px 1.2em;
+  padding: 1.3em 0 1.3em;
   background-color: #0667d0;
   position: absolute;
   left: 0px;
@@ -98,7 +104,6 @@ body {
 }
 
 #header .header-logo {
-  float: right;
   z-index: 100;
 }
 
@@ -106,4 +111,7 @@ body {
   font-size: 18px;
   font-weight: 400;
   color: #0667d0;
+  background-color: white;
+  padding: 0.75em 18px;
+  margin-bottom: 0;
 }
