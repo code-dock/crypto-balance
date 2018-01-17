@@ -1,7 +1,7 @@
 body {
   margin: auto;
   padding: 0;
-  background-color: #f8f8f8;
+  background-color: #eee;
 }
 
 #login-page {
@@ -10,14 +10,21 @@ body {
 }
 
 #wallets-page {
-  height: 415px;
-  width: 300px;
+  height: 500px;
+  width: 350px;
 }
 
-.add-border {
-  border-color: #d1d1d1;
-  border-style: solid;
-  border-width: 1px;
+.table {
+  background-color: white;
+  border: 1px solid #dae1e9;
+  border-radius: 2px;
+}
+
+.brdr-top {
+}
+
+.brdr-btm {
+  border-bottom: 1px solid #dae1e9;
 }
 
 .container {
@@ -26,11 +33,12 @@ body {
 }
 
 .container-inner {
-  padding: 0 23px;
+  padding: 0 15px;
+  margin-top: -10px;
 }
 
 .cell-item {
-  padding: 8px;
+  padding: 8px 0;
 }
 
 .adjust-number {
@@ -48,35 +56,42 @@ body {
   padding-right: 10px;
 }
 
+.crypto-img {
+  display: inline;
+  width: 40px;
+}
+
 .icon {
   padding: 0 6px 0 10px;
-  font-weight: bold;
-  font-size: 0.8em;
+  /*font-weight: bold;*/
+  font-size: 1.4em;
   color: #555;
 }
 
 #header {
   display: block;
-  text-align: center;
-  height: 35px;
+  text-align: left;
+  height: 55px;
+  width: 100%;
   margin: auto;
   padding-top: 10px;
+  background-color: #0667d0;
 }
 
 #header .title {
   margin: auto;
   font-size: 20px;
   display: inline;
+  color: white;
 }
 
 #header .header-logo {
-  position: absolute;
-  top: 13px;
-  left: 15px;
+  float: right;
   z-index: 100;
 }
 
 .subtitle {
-  margin: 15px 10px;
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #0667d0;
 }
