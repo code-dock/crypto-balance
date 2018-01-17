@@ -110,8 +110,6 @@ function addAccountsToBody(list) {
         const balance =
             '<td class="cell-item balance">' +
             '<text class="base-currency">' +
-            item.balance.amount +
-            " " +
             getExtendedName(item.balance.currency) +
             "</text>" +
             "<br>" +
