@@ -28,7 +28,7 @@ function addAccountsToBody(list) {
   list.forEach(item => {
     const walletsTable = document.querySelector(".wallets table");
     // const listLength = list.length;
-    const listLength = 1;
+    const listLength = 4;
 
     var currencyIcons = ["bch.png", "ltc.png", "eth.jpg", "btc.png"];
     var names = ["Bitcoin Cash", "Litecoin", "Etherium", "Bitcoin"];
