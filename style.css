@@ -104,6 +104,7 @@ body {
 }
 
 #header .header-logo {
+  width: 50px;
   z-index: 100;
 }
 
