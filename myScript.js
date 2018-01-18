@@ -4,26 +4,6 @@ function parseAsJson(response) {
   return response.json();
 }
 
-function addRatesToBody(list) {
-  list.forEach(item => {
-    const ratesTable = document.querySelector(".rates table .table-row");
-
-    // Here we are saying that the table's HTML content is
-    // whatever is already there, plus this big string.
-    // This means that we are adding content to the end of the table
-    ratesTable.innerHTML =
-      ratesTable.innerHTML +
-      // A backtick like this one here ` means that we are starting a
-      // string that will span through multiple lines.
-      // Inside this strings, we can make reference to variables by
-      // writing them like this ${variableName}
-      `
-                <td class="cell-item">${item.data.base}•</td>
-                <td class="cell-item">£${item.data.amount}</td>
-            `;
-  });
-}
-
 function getSymbol(abr) {
   if (abr === "GBP") {
     return "£";
@@ -98,15 +78,54 @@ function getExtendedName(abr) {
   return abr;
 }
 
+function addRatesToBody(list) {
+  const ratesTable = document.querySelector(".rates table .table-row");
+
+  list.forEach((item, index) => {
+    const icon =
+      '<td class="cell-item icon">' +
+      '<img class="crypto-img" src="' +
+      getIcon(item.data.base) +
+      '" alt="">' +
+      "</td>";
+
+    const currencyName =
+      '<td class="cell-item base-currency name-currency">' +
+      getExtendedName(item.data.base) +
+      "</td>";
+
+    const balance =
+      '<td class="cell-item balance">' +
+      '<text class="base-currency">' +
+      getExtendedName(item.data.base) +
+      "</text>" +
+      "<br>" +
+      '<text class="native-currency">' +
+      getSymbol(item.native_balance.currency) +
+      " " +
+      item.data.amount +
+      "</text>" +
+      "</td>";
+
+    ratesTable.innerHTML =
+      ratesTable.innerHTML +
+      '<tr class="table-row">' +
+      icon +
+      currencyName +
+      balance +
+      "</tr>";
+  });
+}
+
 function addAccountsToBody(list) {
   const walletsTable = document.querySelector(".wallets table");
 
   list.forEach((item, index) => {
     const icon =
       '<td class="cell-item icon">' +
-      '<img class="crypto-img" src="' +
+      '<img class="crypto-img" src="images/' +
       getIcon(item.balance.currency) +
-      '" alt="">' +
+      ' " alt="">' +
       "</td>";
 
     const currencyName =
