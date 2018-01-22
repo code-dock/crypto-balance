@@ -79,41 +79,43 @@ function getExtendedName(abr) {
 }
 
 function addRatesToBody(list) {
-  const ratesTable = document.querySelector(".rates table .table-row");
+  const ratesTable = document.querySelector(".rates table");
 
   list.forEach((item, index) => {
     const icon =
       '<td class="cell-item icon">' +
-      '<img class="crypto-img" src="' +
+      '<img class="crypto-img" src="images/' +
       getIcon(item.data.base) +
-      '" alt="">' +
+      ' " alt="">' +
+      "</td>";
+
+    const inputNumber =
+      '<td class="cell-item">' +
+      '<input class="base-currency" type="text" id="input" value="1">' +
       "</td>";
 
     const currencyName =
       '<td class="cell-item base-currency name-currency">' +
       getExtendedName(item.data.base) +
       "</td>";
+    var inputAmount = document.getElementById("inout").value;
+    var itemDataAmount = item.data.amount;
 
-    const balance =
-      '<td class="cell-item balance">' +
-      '<text class="base-currency">' +
-      getExtendedName(item.data.base) +
-      "</text>" +
-      "<br>" +
-      '<text class="native-currency">' +
-      getSymbol(item.native_balance.currency) +
-      " " +
-      item.data.amount +
-      "</text>" +
-      "</td>";
+    const multiplyInputByRate = itemDataAmount * inputAmount;
+
+    const rateNumber = '<td class="cell-item rate-number"><p>' + "</p> </td>";
 
     ratesTable.innerHTML =
       ratesTable.innerHTML +
       '<tr class="table-row">' +
+      "<form>" +
       icon +
+      inputNumber +
       currencyName +
-      balance +
+      rateNumber +
+      "</form>" +
       "</tr>";
+    console.log(rateNumber);
   });
 }
 

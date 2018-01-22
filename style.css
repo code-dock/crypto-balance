@@ -14,13 +14,6 @@ body {
   width: 375px;
 }
 
-.banner-rates {
-  /*display: inline;
-  position: absolute;
-  top: 80px;
-  left: -2px;*/
-}
-
 .table {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -47,11 +40,20 @@ body {
   margin-top: 20px;
 }
 
+.rates {
+  margin-top: 80px;
+}
+
 .cell-item {
   text-align: left;
   font-size: 16px;
   padding: 8px 0;
   cursor: pointer;
+}
+
+#input,
+#rate {
+  width: 30px;
 }
 
 .icon {
