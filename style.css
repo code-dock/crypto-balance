@@ -10,25 +10,8 @@ body {
 }
 
 #wallets-page {
-  height: 500px;
+  height: 700px;
   width: 375px;
-}
-
-.table {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  width: 100%;
-  background-color: white;
-  border: 1px solid #dae1e9;
-  border-radius: 2px;
-}
-
-.brdr-top {
-  border-top: 1px solid #dae1e9;
-}
-
-.brdr-btm {
-  border-bottom: 1px solid #dae1e9;
 }
 
 .container {
@@ -38,54 +21,6 @@ body {
 
 .container-inner {
   margin-top: 20px;
-}
-
-.rates {
-  margin-top: 80px;
-}
-
-.cell-item {
-  text-align: left;
-  font-size: 16px;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-#input,
-#rate {
-  width: 30px;
-}
-
-.icon {
-  text-align: center;
-}
-
-.balance {
-  text-align: right;
-  padding-right: 15px;
-}
-
-.name-currency {
-  font-size: 18px;
-}
-
-.base-currency {
-  color: #4e5c6e;
-}
-
-.native-currency {
-  color: #9ba6b2;
-}
-
-.arrows {
-  text-align: center;
-  padding: 0 6px;
-}
-
-.crypto-img {
-  display: inline;
-  width: 40px;
-  padding: 1px 8px;
 }
 
 #header {
@@ -118,4 +53,85 @@ body {
   background-color: white;
   padding: 0.75em 18px;
   margin-bottom: 0;
+}
+
+.rates {
+  margin-top: 80px;
+}
+
+.table {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #dae1e9;
+  border-radius: 2px;
+}
+
+.rates-table {
+  padding-top: 8px;
+  padding-bottom: 0;
+}
+
+.cell-item {
+  text-align: left;
+  font-size: 16px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.rates-cell-item {
+  padding: 5px 0;
+}
+
+#input,
+#rate {
+  width: 30px;
+  text-align: right;
+}
+
+.crypto-img {
+  display: inline;
+  width: 40px;
+  padding: 1px 8px;
+}
+
+.icon {
+  text-align: center;
+}
+
+.balance {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.name-currency {
+  font-size: 18px;
+}
+
+.base-currency {
+  color: #4e5c6e;
+}
+
+.native-currency {
+  color: #9ba6b2;
+}
+
+.arrows {
+  text-align: center;
+  padding: 0 6px;
+}
+
+.arrow-button {
+  border: unset;
+  background-color: inherit;
+  font-size: 1.7em;
+}
+
+.brdr-top {
+  border-top: 1px solid #dae1e9;
+}
+
+.brdr-btm {
+  border-bottom: 1px solid #dae1e9;
 }

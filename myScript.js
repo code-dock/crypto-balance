@@ -78,44 +78,55 @@ function getExtendedName(abr) {
   return abr;
 }
 
+function multiplyBy() {
+  num1 = document.getElementById("input").value;
+  num2 = item.data.amount;
+  document.getElementById("rate").innerHTML = num1 * num2;
+}
+
 function addRatesToBody(list) {
   const ratesTable = document.querySelector(".rates table");
 
   list.forEach((item, index) => {
     const icon =
-      '<td class="cell-item icon">' +
+      '<td class="cell-item rates-cell-item icon">' +
       '<img class="crypto-img" src="images/' +
       getIcon(item.data.base) +
       ' " alt="">' +
       "</td>";
 
     const inputNumber =
-      '<td class="cell-item">' +
+      '<td class="cell-item rates-cell-item">' +
       '<input class="base-currency" type="text" id="input" value="1">' +
       "</td>";
 
     const currencyName =
-      '<td class="cell-item base-currency name-currency">' +
+      '<td class="cell-item rates-cell-item base-currency name-currency">' +
       getExtendedName(item.data.base) +
       "</td>";
-    var inputAmount = document.getElementById("inout").value;
-    var itemDataAmount = item.data.amount;
 
-    const multiplyInputByRate = itemDataAmount * inputAmount;
+    const arrowButton =
+      '<td class="cell-item rates-cell-item base-currency">' +
+      '<button class="arrow-button base-currency" onClick="multiplyBy()"> → ' +
+      "</button > </td >";
 
-    const rateNumber = '<td class="cell-item rate-number"><p>' + "</p> </td>";
+    const rateNumber =
+      '<td class="cell-item rates-cell-item">' +
+      '<p class="base-currency rate-number" type="text" id="rate" value="' +
+      item.data.amount +
+      '"></p>' +
+      "</td>";
 
     ratesTable.innerHTML =
       ratesTable.innerHTML +
       '<tr class="table-row">' +
-      "<form>" +
       icon +
       inputNumber +
       currencyName +
+      arrowButton +
       rateNumber +
-      "</form>" +
       "</tr>";
-    console.log(rateNumber);
+    console.log(document.getElementsByClassName("rate-number"));
   });
 }
 
@@ -124,19 +135,19 @@ function addAccountsToBody(list) {
 
   list.forEach((item, index) => {
     const icon =
-      '<td class="cell-item icon">' +
+      '<td class="cell-item rates-cell-item icon">' +
       '<img class="crypto-img" src="images/' +
       getIcon(item.balance.currency) +
       ' " alt="">' +
       "</td>";
 
     const currencyName =
-      '<td class="cell-item base-currency name-currency">' +
+      '<td class="cell-item rates-cell-item base-currency name-currency">' +
       getExtendedName(item.balance.currency) +
       "</td>";
 
     const balance =
-      '<td class="cell-item balance">' +
+      '<td class="cell-item rates-cell-item balance">' +
       '<text class="base-currency">' +
       getExtendedName(item.balance.currency) +
       "</text>" +
