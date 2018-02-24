@@ -78,12 +78,6 @@ function getExtendedName(abr) {
   return abr;
 }
 
-function multiplyBy() {
-  num1 = document.getElementById("input").value;
-  num2 = item.data.amount;
-  document.getElementById("rate").innerHTML = num1 * num2;
-}
-
 function addRatesToBody(list) {
   const ratesTable = document.querySelector(".rates table");
 
@@ -97,7 +91,7 @@ function addRatesToBody(list) {
 
     const inputNumber =
       '<td class="cell-item rates-cell-item">' +
-      '<input class="base-currency" type="text" id="input" value="1">' +
+      '<input class="input myInput1" type="text" value="" placeholder="1">' +
       "</td>";
 
     const currencyName =
@@ -105,16 +99,9 @@ function addRatesToBody(list) {
       getExtendedName(item.data.base) +
       "</td>";
 
-    const arrowButton =
-      '<td class="cell-item rates-cell-item base-currency">' +
-      '<button class="arrow-button base-currency" onClick="multiplyBy()"> → ' +
-      "</button > </td >";
-
     const rateNumber =
-      '<td class="cell-item rates-cell-item">' +
-      '<p class="base-currency rate-number" type="text" id="rate" value="' +
-      item.data.amount +
-      '"></p>' +
+      '<td class="cell-item rates-cell-item balance">' +
+      '<p class="base-currency rate-number"><span class="result1"></span></p>' +
       "</td>";
 
     ratesTable.innerHTML =
@@ -123,10 +110,9 @@ function addRatesToBody(list) {
       icon +
       inputNumber +
       currencyName +
-      arrowButton +
       rateNumber +
       "</tr>";
-    console.log(document.getElementsByClassName("rate-number"));
+    console.log();
   });
 }
 
@@ -135,19 +121,19 @@ function addAccountsToBody(list) {
 
   list.forEach((item, index) => {
     const icon =
-      '<td class="cell-item rates-cell-item icon">' +
+      '<td class="cell-item icon">' +
       '<img class="crypto-img" src="images/' +
       getIcon(item.balance.currency) +
       ' " alt="">' +
       "</td>";
 
     const currencyName =
-      '<td class="cell-item rates-cell-item base-currency name-currency">' +
+      '<td class="cell-item base-currency name-currency">' +
       getExtendedName(item.balance.currency) +
       "</td>";
 
     const balance =
-      '<td class="cell-item rates-cell-item balance">' +
+      '<td class="cell-item balance">' +
       '<text class="base-currency">' +
       getExtendedName(item.balance.currency) +
       "</text>" +
