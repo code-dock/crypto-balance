@@ -1,95 +1,77 @@
 body {
-  color: #4e5c6e;
-  font-size: 18px;
   margin: auto;
   padding: 0;
+  width: 375px;
+  font-size: 18px;
+  text-align: center;
+  color: #4e5c6e;
   background-color: #eee;
 }
 
-#wallets-page {
-  height: 700px;
-  width: 375px;
-}
-
-.container {
-  position: relative;
-}
-
-#header {
-  display: block;
-  text-align: center;
-  width: 100%;
-  padding: 1.3em 0 1.3em;
+.header {
+  padding: 1.1em 0 1.1em;
   background-color: #0667d0;
-  position: absolute;
-  left: 0px;
-  top: 0px;
 }
 
-#header .title {
-  margin: auto;
-  font-size: 20px;
-  display: inline;
+.title {
+  font-size: 22px;
   color: white;
-}
-
-/*
-color: #0667d0;
-font-weight: 400;
-*/
-
-.rates {
-  margin-top: 80px;
-}
-
-.table {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  width: 100%;
-  background-color: white;
-  border: 1px solid #dae1e9;
-  border-radius: 2px;
-}
-
-.table-row {
-  height: 2em;
-}
-
-.rates-table {
-  padding-top: 8px;
-  padding-bottom: 0;
-}
-
-.rates-cell-item {
-  padding: 5px 0;
-}
-
-.rate {
-  width: 30px;
-  text-align: right;
-}
-
-.crypto-img {
   display: inline;
-  width: 40px;
 }
 
-.balance {
+.subtitle {
+  font-size: 20px;
+  color: #0667d0;
+  font-weight: 400;
+}
+
+.input {
+  color: #665;
+  font-size: 0.9em;
+  text-align: center;
+  margin: 0.37em 0;
+  height: 1.2em;
+  border-bottom: 1px solid #aaa;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.result-txt,
+.base-currency-txt {
+  font-size: 0.9em;
+  padding-right: 20px;
   text-align: right;
-  padding-right: 15px;
 }
 
-.name-currency {
-  font-size: 18px;
-}
-
-.native-currency {
+.base-currency-value {
   color: #9ba6b2;
+}
+
+.crypto-currency-name {
+  text-align: left;
+}
+
+.img {
+  width: 40px;
+  display: inline;
+}
+
+/* table */
+
+table {
+  width: 100%;
 }
 
 table,
 tr {
+  background-color: white;
   border-collapse: collapse;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+}
+
+.table-row {
+  height: 3.6em;
 }

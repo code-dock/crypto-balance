@@ -10,41 +10,29 @@
   </script>
 </head>
 
-<body id="wallets-page">
-  <header class="container" id="header">
+<body>
+  <header class="header">
     <h1 class="title">Goldfish</h1>
-    <img class="crypto-img" src="images/icon.png" alt="">
+    <img class="img" src="images/icon.png" alt="">
   </header>
 
   <section>
     <div class="container-inner rates">
-      <table class="table rates-table" width="100%">
-        <tr>
+      <table class="table rates-table">
+        <tr class="table-row">
           <td >
             <p class="subtitle">Rate</p>
           </td>
         </tr>
 
-        <tr>
-          <td class="cell icon" width="22%">
-            <img class="crypto-img" src="images/placeholder.png" alt=""></td>
+        <tr class="table-row">
+          <td style="width:25%">
+            <img class="img" src="images/placeholder.png" alt=""></td>
           <td>
-            <input class="input-currency" type="text" placeholder="1" maxlength="2" size="1">
+            <input class="input" placeholder="i" maxlength="2" size="1" type="text">
           </td>
-          <td class="cell name-currency">Currency</td>
-          <td class="cell">
-            <span class="result1"></span>
-          </td>
-        </tr>
-
-        <tr class="table-row" style="height:3em">
-          <td class="cell">
-            <img class="crypto-img" src="images/placeholder.png" alt=""></td>
-          <td class="cell cell-input">
-            <input class="input-currency" placeholder="" maxlength="2" size="1" type="text">
-          </td>
-          <td class="cell pad-right-30 input-currency-name">Bitcoin</td>
-          <td class="cell converted-currency"> $13,000</td>
+          <td class="crypto-currency-name">Bitcoin</td>
+          <td class="result-txt"> $13,000</td>
         </tr>
       </table>
 
@@ -56,8 +44,8 @@
     <div class="container-inner wallets">
 
       <table class="table">
-        <tr>
-          <td width="100%">
+        <tr class="table-row">
+          <td >
             <p class="subtitle">Your Portfolio</p>
           </td>
         </tr>
