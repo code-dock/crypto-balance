@@ -1,12 +1,9 @@
 body {
+  color: #4e5c6e;
+  font-size: 18px;
   margin: auto;
   padding: 0;
   background-color: #eee;
-}
-
-#login-page {
-  height: 230px;
-  width: 300px;
 }
 
 #wallets-page {
@@ -15,12 +12,7 @@ body {
 }
 
 .container {
-  background-color: #f5f5f5;
   position: relative;
-}
-
-.container-inner {
-  margin-top: 20px;
 }
 
 #header {
@@ -41,19 +33,10 @@ body {
   color: white;
 }
 
-#header .header-logo {
-  width: 50px;
-  z-index: 100;
-}
-
-.subtitle {
-  font-size: 18px;
-  font-weight: 400;
-  color: #0667d0;
-  background-color: white;
-  padding: 0.75em 18px;
-  margin-bottom: 0;
-}
+/*
+color: #0667d0;
+font-weight: 400;
+*/
 
 .rates {
   margin-top: 80px;
@@ -68,23 +51,19 @@ body {
   border-radius: 2px;
 }
 
+.table-row {
+  height: 2em;
+}
+
 .rates-table {
   padding-top: 8px;
   padding-bottom: 0;
-}
-
-.cell-item {
-  text-align: left;
-  font-size: 16px;
-  padding: 8px 0;
-  cursor: pointer;
 }
 
 .rates-cell-item {
   padding: 5px 0;
 }
 
-.input,
 .rate {
   width: 30px;
   text-align: right;
@@ -93,11 +72,6 @@ body {
 .crypto-img {
   display: inline;
   width: 40px;
-  padding: 1px 8px;
-}
-
-.icon {
-  text-align: center;
 }
 
 .balance {
@@ -109,23 +83,8 @@ body {
   font-size: 18px;
 }
 
-.base-currency {
-  color: #4e5c6e;
-}
-
 .native-currency {
   color: #9ba6b2;
-}
-
-.arrows {
-  text-align: center;
-  padding: 0 6px;
-}
-
-.arrow-button {
-  border: unset;
-  background-color: inherit;
-  font-size: 1.7em;
 }
 
 table,
@@ -133,12 +92,4 @@ tr {
   border-collapse: collapse;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-}
-
-.brdr-top {
-  border-top: 1px solid #dae1e9;
-}
-
-.brdr-btm {
-  border-bottom: 1px solid #dae1e9;
 }

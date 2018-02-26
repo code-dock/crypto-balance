@@ -91,8 +91,7 @@ function addRatesToBody(list) {
 
     const inputNumber =
       '<td class="cell-item rates-cell-item">' +
-      '<input class="input myInput1" type="text" value="" placeholder="1">' +
-      "</td>";
+      '<input type="text" placeholder="1" maxlength="2" size="1"></td>';
 
     const currencyName =
       '<td class="cell-item rates-cell-item base-currency name-currency">' +

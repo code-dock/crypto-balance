@@ -13,22 +13,38 @@
 <body id="wallets-page">
   <header class="container" id="header">
     <h1 class="title">Goldfish</h1>
-    <img class="header-logo" src="images/icon.png" alt="">
+    <img class="crypto-img" src="images/icon.png" alt="">
   </header>
+
   <section>
-
     <div class="container-inner rates">
-
-      <h2 class="subtitle brdr-top">Rate</h2>
-      <table class="table rates-table">
+      <table class="table rates-table" width="100%">
         <tr>
+          <td >
+            <p class="subtitle">Rate</p>
+          </td>
+        </tr>
 
-          <td class="cell-item icon">
+        <tr>
+          <td class="cell icon" width="22%">
             <img class="crypto-img" src="images/placeholder.png" alt=""></td>
           <td>
-            <input class="base-currency input myInput1" type="text" value="1"></td>
-          <td class="cell-item base-currency name-currency">Currency</td>
-          <td class="cell-item base-currency"><span class="result1"></span></td>
+            <input class="input-currency" type="text" placeholder="1" maxlength="2" size="1">
+          </td>
+          <td class="cell name-currency">Currency</td>
+          <td class="cell">
+            <span class="result1"></span>
+          </td>
+        </tr>
+
+        <tr class="table-row" style="height:3em">
+          <td class="cell">
+            <img class="crypto-img" src="images/placeholder.png" alt=""></td>
+          <td class="cell cell-input">
+            <input class="input-currency" placeholder="" maxlength="2" size="1" type="text">
+          </td>
+          <td class="cell pad-right-30 input-currency-name">Bitcoin</td>
+          <td class="cell converted-currency"> $13,000</td>
         </tr>
       </table>
 
@@ -39,9 +55,12 @@
   <section class="container">
     <div class="container-inner wallets">
 
-      <h2 class="subtitle brdr-top">Your Portfolio</h2>
       <table class="table">
-        <!-- <td class="cell-item arrows"> ↔ </td> -->
+        <tr>
+          <td width="100%">
+            <p class="subtitle">Your Portfolio</p>
+          </td>
+        </tr>
 
       </table>
 
