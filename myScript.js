@@ -77,43 +77,58 @@ function getExtendedName(abr) {
 
   return abr;
 }
+function createRow(currency) {
+  const row = document.createElement("tr");
 
-function addRatesToBody(list) {
-  const ratesTable = document.querySelector(".rates table");
+  const colName = document.createElement("td");
+  colName.innerHTML = currency.name;
+  row.appendChild(colName);
 
-  list.forEach((item, index) => {
-    const icon =
-      '<td class="cell-item rates-cell-item icon">' +
-      '<img class="crypto-img" src="images/' +
-      getIcon(item.data.base) +
-      ' " alt="">' +
-      "</td>";
+  const colInput = document.createElement("td");
+  const currencyInput = document.createElement("input");
+  currencyInput.classList.add(currency.inputClass);
+  currencyInput.setAttribute("type", "text");
+  colInput.appendChild(currencyInput);
+  row.appendChild(colInput);
 
-    const inputNumber =
-      '<td class="cell-item rates-cell-item">' +
-      '<input class="input myInput1" type="text" value="" placeholder="1">' +
-      "</td>";
+  const colResult = document.createElement("td");
+  const resultSpan = document.createElement("span");
+  resultSpan.classList.add(currency.resultClass);
+  colResult.appendChild(resultSpan);
+  row.appendChild(colResult);
 
-    const currencyName =
-      '<td class="cell-item rates-cell-item base-currency name-currency">' +
-      getExtendedName(item.data.base) +
-      "</td>";
+  currencyInput.addEventListener("input", event => {
+    const inputValue = currencyInput.value;
+    const parsedValue = parseFloat(currencyInput.value);
 
-    const rateNumber =
-      '<td class="cell-item rates-cell-item balance">' +
-      '<p class="base-currency rate-number"><span class="result1"></span></p>' +
-      "</td>";
-
-    ratesTable.innerHTML =
-      ratesTable.innerHTML +
-      '<tr class="table-row">' +
-      icon +
-      inputNumber +
-      currencyName +
-      rateNumber +
-      "</tr>";
-    console.log();
+    function showResult() {
+      if (isNaN(parsedValue)) {
+        inputBox.style.borderColor = "red";
+        resultBox.textContent = "Error";
+      } else if (inputValue == " ") {
+        resultBox.textContent = " ";
+      } else {
+        inputBox.style.borderColor = "transparent";
+        resultSpan.innerHTML = currencyInput.value * currency.rate;
+      }
+    }
+    console.log(isNaN(parsedValue));
+    showResult();
   });
+
+  const inputBox = currencyInput;
+  const resultBox = resultSpan;
+
+  return row;
+}
+function addRatesToBody(list) {
+  const rows = list.map(createRow);
+
+  const table = document.createElement("table");
+
+  rows.forEach(item => table.appendChild(item));
+
+  document.body.appendChild(table);
 }
 
 function addAccountsToBody(list) {
