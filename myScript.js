@@ -77,23 +77,40 @@ function getExtendedName(abr) {
 
   return abr;
 }
-function createRow(currency) {
+
+// function createSubtitle(name) {
+//   const row = document.createElement("tr");
+//   const subtitle = document.createElement("td");
+//   subtitle.innerHTML = name;
+//   subtitle.classList.add("subtitle");
+//   row.appendChild(subtitle);
+// }
+
+function createRatesRow(currency) {
   const row = document.createElement("tr");
 
+  const colIcon = document.createElement("td");
+  const icon = document.createElement("img");
+  icon.classList.add("img");
+  icon.setAttribute("src", "images/" + getIcon(currency.data.base));
+  icon.setAttribute("alt", "");
+  colIcon.appendChild(icon);
+  row.appendChild(colIcon);
+
   const colName = document.createElement("td");
-  colName.innerHTML = currency.name;
+  colName.innerHTML = getExtendedName(currency.data.base);
   row.appendChild(colName);
 
   const colInput = document.createElement("td");
   const currencyInput = document.createElement("input");
-  currencyInput.classList.add(currency.inputClass);
+  currencyInput.classList.add(currency.data.base + "input");
   currencyInput.setAttribute("type", "text");
   colInput.appendChild(currencyInput);
   row.appendChild(colInput);
 
   const colResult = document.createElement("td");
   const resultSpan = document.createElement("span");
-  resultSpan.classList.add(currency.resultClass);
+  resultSpan.classList.add(currency.data.base + "result");
   colResult.appendChild(resultSpan);
   row.appendChild(colResult);
 
@@ -105,14 +122,12 @@ function createRow(currency) {
       if (isNaN(parsedValue)) {
         inputBox.style.borderColor = "red";
         resultBox.textContent = "Error";
-      } else if (inputValue == " ") {
-        resultBox.textContent = " ";
       } else {
         inputBox.style.borderColor = "transparent";
         resultSpan.innerHTML = currencyInput.value * currency.rate;
       }
+      console.log(isNaN(currencyInput.value));
     }
-    console.log(isNaN(parsedValue));
     showResult();
   });
 
@@ -121,54 +136,83 @@ function createRow(currency) {
 
   return row;
 }
+
+function createAccountsRow(currency) {
+  const row = document.createElement("tr");
+
+  const colIcon = document.createElement("td");
+  const icon = document.createElement("img");
+  icon.classList.add("img");
+  icon.setAttribute("src", "images/" + getIcon(currency.balance.currency));
+  icon.setAttribute("alt", "");
+  colIcon.appendChild(icon);
+  row.appendChild(colIcon);
+
+  const colName = document.createElement("td");
+  colName.innerHTML = getExtendedName(currency.balance.currency);
+  row.appendChild(colName);
+}
+
 function addRatesToBody(list) {
-  const rows = list.map(createRow);
+  const row = document.createElement("tr");
+  const subtitle = document.createElement("td");
+  subtitle.classList.add("subtitle");
+  subtitle.innerHTML = "Rates";
+  row.appendChild(subtitle);
 
+  const rows = list.map(createRatesRow);
   const table = document.createElement("table");
-
+  table.appendChild(subtitle);
   rows.forEach(item => table.appendChild(item));
-
   document.body.appendChild(table);
 }
 
 function addAccountsToBody(list) {
-  const walletsTable = document.querySelector(".wallets table");
+  const row = document.createElement("tr");
+  const subtitle = document.createElement("td");
+  subtitle.classList.add("subtitle");
+  subtitle.innerHTML = "Accounts";
+  row.appendChild(subtitle);
 
-  list.forEach((item, index) => {
-    const icon =
-      '<td class="cell-item icon">' +
-      '<img class="crypto-img" src="images/' +
-      getIcon(item.balance.currency) +
-      ' " alt="">' +
-      "</td>";
-
-    const currencyName =
-      '<td class="cell-item base-currency name-currency">' +
-      getExtendedName(item.balance.currency) +
-      "</td>";
-
-    const balance =
-      '<td class="cell-item balance">' +
-      '<text class="base-currency">' +
-      getExtendedName(item.balance.currency) +
-      "</text>" +
-      "<br>" +
-      '<text class="native-currency">' +
-      getSymbol(item.native_balance.currency) +
-      " " +
-      item.native_balance.amount +
-      "</text>" +
-      "</td>";
-
-    walletsTable.innerHTML =
-      walletsTable.innerHTML +
-      '<tr class="table-row">' +
-      icon +
-      currencyName +
-      balance +
-      "</tr>";
-  });
+  const rows = list.map(createAccountsRow);
+  const table = document.createElement("table");
+  table.appendChild(subtitle);
+  rows.forEach(item => table.appendChild(item));
+  document.body.appendChild(table);
 }
+//   const icon =
+//     '<td class="cell-item icon">' +
+//     '<img class="img" src="images/' +
+//     getIcon(item.balance.currency) +
+//     ' " alt="">' +
+//     "</td>";
+//
+//   const currencyName =
+//     '<td class="cell-item base-currency name-currency">' +
+//     getExtendedName(item.balance.currency) +
+//     "</td>";
+//
+//   const balance =
+//     '<td class="cell-item balance">' +
+//     '<text class="base-currency">' +
+//     getExtendedName(item.balance.currency) +
+//     "</text>" +
+//     "<br>" +
+//     '<text class="native-currency">' +
+//     getSymbol(item.native_balance.currency) +
+//     " " +
+//     item.native_balance.amount +
+//     "</text>" +
+//     "</td>";
+//
+//   walletsTable.innerHTML =
+//     walletsTable.innerHTML +
+//     '<tr class="table-row">' +
+//     icon +
+//     currencyName +
+//     balance +
+//     "</tr>";
+// });
 
 fetch("http://localhost:8080/rates")
   .then(parseAsJson)
