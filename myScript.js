@@ -88,8 +88,11 @@ function getExtendedName(abr) {
 
 function createRatesRow(currency) {
   const row = document.createElement("tr");
+  row.classList.add("table-row");
 
   const colIcon = document.createElement("td");
+  colIcon.setAttribute("style", "width:25%");
+
   const icon = document.createElement("img");
   icon.classList.add("img");
   icon.setAttribute("src", "images/" + getIcon(currency.data.base));
@@ -97,19 +100,23 @@ function createRatesRow(currency) {
   colIcon.appendChild(icon);
   row.appendChild(colIcon);
 
-  const colName = document.createElement("td");
-  colName.innerHTML = getExtendedName(currency.data.base);
-  row.appendChild(colName);
-
   const colInput = document.createElement("td");
   const currencyInput = document.createElement("input");
   currencyInput.classList.add(currency.data.base + "input");
+  currencyInput.setAttribute("maxlength", "2");
+  currencyInput.setAttribute("size", "1");
   currencyInput.setAttribute("type", "text");
   colInput.appendChild(currencyInput);
   row.appendChild(colInput);
 
+  const colName = document.createElement("td");
+  colName.classList.add("crypto-currency-name");
+  colName.innerHTML = getExtendedName(currency.data.base);
+  row.appendChild(colName);
+
   const colResult = document.createElement("td");
   const resultSpan = document.createElement("span");
+  resultSpan.classList.add("result-txt");
   resultSpan.classList.add(currency.data.base + "result");
   colResult.appendChild(resultSpan);
   row.appendChild(colResult);
@@ -124,7 +131,9 @@ function createRatesRow(currency) {
         resultBox.textContent = "Error";
       } else {
         inputBox.style.borderColor = "transparent";
-        resultSpan.innerHTML = currencyInput.value * currency.rate;
+        resultSpan.innerHTML =
+          getSymbol(currency.data.currency) +
+          currencyInput.value * currency.data.amount;
       }
       console.log(isNaN(currencyInput.value));
     }
@@ -139,8 +148,11 @@ function createRatesRow(currency) {
 
 function createAccountsRow(currency) {
   const row = document.createElement("tr");
+  row.classList.add("table-row");
 
   const colIcon = document.createElement("td");
+  colIcon.setAttribute("style", "width:25%");
+
   const icon = document.createElement("img");
   icon.classList.add("img");
   icon.setAttribute("src", "images/" + getIcon(currency.balance.currency));
@@ -149,36 +161,57 @@ function createAccountsRow(currency) {
   row.appendChild(colIcon);
 
   const colName = document.createElement("td");
+  colName.classList.add("crypto-currency-name");
   colName.innerHTML = getExtendedName(currency.balance.currency);
   row.appendChild(colName);
+
+  const colInfo = document.createElement("td");
+  const pNode = document.createElement("p");
+  pNode.classList.add("base-currency-txt");
+  pNode.innerHTML =
+    getExtendedName(currency.balance.currency) +
+    "<br>" +
+    getSymbol(currency.native_balance.currency) +
+    currency.native_balance.amount;
+  colInfo.appendChild(pNode);
+  row.appendChild(colInfo);
+
+  console.log(getExtendedName(currency.balance.currency));
+  return row;
 }
 
 function addRatesToBody(list) {
   const row = document.createElement("tr");
+
   const subtitle = document.createElement("td");
   subtitle.classList.add("subtitle");
+  subtitle.classList.add("table-row-subtitle");
   subtitle.innerHTML = "Rates";
   row.appendChild(subtitle);
 
   const rows = list.map(createRatesRow);
-  const table = document.createElement("table");
-  table.appendChild(subtitle);
-  rows.forEach(item => table.appendChild(item));
-  document.body.appendChild(table);
+  const ratesTable = document.createElement("table");
+  // innerHTML.table = createSubtitle(name);
+  ratesTable.appendChild(subtitle);
+  rows.forEach(item => ratesTable.appendChild(item));
+  document.body.appendChild(ratesTable);
 }
 
 function addAccountsToBody(list) {
   const row = document.createElement("tr");
+  row.classList.add("table-row");
+
   const subtitle = document.createElement("td");
   subtitle.classList.add("subtitle");
-  subtitle.innerHTML = "Accounts";
+  subtitle.classList.add("table-row-subtitle");
+  subtitle.innerHTML = "Portfolio";
   row.appendChild(subtitle);
 
   const rows = list.map(createAccountsRow);
-  const table = document.createElement("table");
-  table.appendChild(subtitle);
-  rows.forEach(item => table.appendChild(item));
-  document.body.appendChild(table);
+  const accountsTable = document.createElement("table");
+  accountsTable.appendChild(subtitle);
+  rows.forEach(item => accountsTable.appendChild(item));
+  document.body.appendChild(accountsTable);
 }
 //   const icon =
 //     '<td class="cell-item icon">' +
