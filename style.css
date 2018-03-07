@@ -8,6 +8,11 @@ body {
   background-color: #eee;
 }
 
+p {
+  display: inline;
+  margin: auto 5px;
+}
+
 .header {
   padding: 1.1em 0 1.1em;
   background-color: #0667d0;
@@ -26,16 +31,9 @@ body {
 }
 
 .input {
-  color: #665;
-  font-size: 0.9em;
   text-align: center;
-  margin: 0.37em 0;
-  height: 1.2em;
-  border-bottom: 1px solid #aaa;
-  border: 1px solid #ccc;
-  border-radius: 1px;
-  background-color: #fff;
   cursor: pointer;
+  display: inline;
 }
 
 .result-txt,
@@ -46,9 +44,9 @@ body {
   text-align: right;
 }
 
-.result-txt {
+/*.result-txt {
   padding-right: 5px;
-}
+}*/
 
 .base-currency-value {
   color: #9ba6b2;
@@ -85,4 +83,8 @@ tr {
 
 .table-row {
   height: 3em;
+}
+
+.right {
+  text-align: right;
 }

@@ -78,20 +78,12 @@ function getExtendedName(abr) {
   return abr;
 }
 
-// function createSubtitle(name) {
-//   const row = document.createElement("tr");
-//   const subtitle = document.createElement("td");
-//   subtitle.innerHTML = name;
-//   subtitle.classList.add("subtitle");
-//   row.appendChild(subtitle);
-// }
-
 function createRatesRow(currency) {
   const row = document.createElement("tr");
   row.classList.add("table-row");
 
   const colIcon = document.createElement("td");
-  colIcon.setAttribute("style", "width:25%");
+  colIcon.setAttribute("style", "width:22%");
 
   const icon = document.createElement("img");
   icon.classList.add("img");
@@ -100,24 +92,33 @@ function createRatesRow(currency) {
   colIcon.appendChild(icon);
   row.appendChild(colIcon);
 
-  const colInput = document.createElement("td");
-  const currencyInput = document.createElement("input");
-  currencyInput.classList.add(currency.data.base + "input");
-  currencyInput.setAttribute("maxlength", "2");
-  currencyInput.setAttribute("size", "1");
-  currencyInput.setAttribute("type", "text");
-  colInput.appendChild(currencyInput);
-  row.appendChild(colInput);
-
   const colName = document.createElement("td");
   colName.classList.add("crypto-currency-name");
   colName.innerHTML = getExtendedName(currency.data.base);
   row.appendChild(colName);
 
+  const colInput = document.createElement("td");
+  const currencyInput = document.createElement("input");
+  currencyInput.classList.add(currency.data.base + "input");
+  currencyInput.classList.add("input");
+  currencyInput.setAttribute("maxlength", "2");
+  currencyInput.setAttribute("size", "1");
+  currencyInput.setAttribute("type", "text");
+  currencyInput.setAttribute("placeholder", "1");
+  const textNode = document.createElement("p");
+  textNode.innerHTML = " = ";
+
+  colInput.appendChild(currencyInput);
+  colInput.appendChild(textNode);
+  row.appendChild(colInput);
+
   const colResult = document.createElement("td");
+  colResult.classList.add("right");
   const resultSpan = document.createElement("span");
   resultSpan.classList.add("result-txt");
   resultSpan.classList.add(currency.data.base + "result");
+  resultSpan.innerHTML = currency.data.amount;
+
   colResult.appendChild(resultSpan);
   row.appendChild(colResult);
 
@@ -126,7 +127,11 @@ function createRatesRow(currency) {
     const parsedValue = parseFloat(currencyInput.value);
 
     function showResult() {
-      if (isNaN(parsedValue)) {
+      if (
+        isNaN(parsedValue) &&
+        !currencyInput.value == "" &&
+        !currencyInput.value == " "
+      ) {
         inputBox.style.borderColor = "red";
         resultBox.textContent = "Error";
       } else {
@@ -151,7 +156,7 @@ function createAccountsRow(currency) {
   row.classList.add("table-row");
 
   const colIcon = document.createElement("td");
-  colIcon.setAttribute("style", "width:25%");
+  colIcon.setAttribute("style", "width:10%");
 
   const icon = document.createElement("img");
   icon.classList.add("img");
@@ -166,14 +171,16 @@ function createAccountsRow(currency) {
   row.appendChild(colName);
 
   const colInfo = document.createElement("td");
-  const pNode = document.createElement("p");
-  pNode.classList.add("base-currency-txt");
-  pNode.innerHTML =
-    getExtendedName(currency.balance.currency) +
+  const textNode = document.createElement("p");
+  textNode.classList.add("base-currency-txt");
+  textNode.innerHTML =
+    currency.balance.amount +
+    " " +
+    currency.balance.currency +
     "<br>" +
     getSymbol(currency.native_balance.currency) +
     currency.native_balance.amount;
-  colInfo.appendChild(pNode);
+  colInfo.appendChild(textNode);
   row.appendChild(colInfo);
 
   console.log(getExtendedName(currency.balance.currency));
@@ -213,39 +220,6 @@ function addAccountsToBody(list) {
   rows.forEach(item => accountsTable.appendChild(item));
   document.body.appendChild(accountsTable);
 }
-//   const icon =
-//     '<td class="cell-item icon">' +
-//     '<img class="img" src="images/' +
-//     getIcon(item.balance.currency) +
-//     ' " alt="">' +
-//     "</td>";
-//
-//   const currencyName =
-//     '<td class="cell-item base-currency name-currency">' +
-//     getExtendedName(item.balance.currency) +
-//     "</td>";
-//
-//   const balance =
-//     '<td class="cell-item balance">' +
-//     '<text class="base-currency">' +
-//     getExtendedName(item.balance.currency) +
-//     "</text>" +
-//     "<br>" +
-//     '<text class="native-currency">' +
-//     getSymbol(item.native_balance.currency) +
-//     " " +
-//     item.native_balance.amount +
-//     "</text>" +
-//     "</td>";
-//
-//   walletsTable.innerHTML =
-//     walletsTable.innerHTML +
-//     '<tr class="table-row">' +
-//     icon +
-//     currencyName +
-//     balance +
-//     "</tr>";
-// });
 
 fetch("http://localhost:8080/rates")
   .then(parseAsJson)
