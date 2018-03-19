@@ -44,9 +44,12 @@ p {
   text-align: right;
 }
 
-/*.result-txt {
-  padding-right: 5px;
-}*/
+.result-txt {
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .base-currency-value {
   color: #9ba6b2;
@@ -82,9 +85,11 @@ tr {
 }
 
 .table-row {
-  height: 3em;
+  height: 2.6em;
 }
 
 .right {
   text-align: right;
+  overflow: hidden;
+  width: 115px;
 }

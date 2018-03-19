@@ -14,49 +14,49 @@ const Future = require("fluture");
 const { traverse } = require("ramda");
 
 const client = new Client({
-    apiKey: credentials.apiKey,
-    apiSecret: credentials.apiSecret
+  apiKey: credentials.apiKey,
+  apiSecret: credentials.apiSecret
 });
 
 const currencies = ["BTC", "BCH", "LTC", "ETH"];
 
 const getRate = (coinbaseClient, baseCurrency, rateCurrency) =>
-    Future((reject, resolve) => {
-        coinbaseClient.getBuyPrice(
-            { currencyPair: `${rateCurrency}-${baseCurrency}` },
-            (err, obj) => (err ? reject(err) : resolve(obj))
-        );
-    });
+  Future((reject, resolve) => {
+    coinbaseClient.getBuyPrice(
+      { currencyPair: `${rateCurrency}-${baseCurrency}` },
+      (err, obj) => (err ? reject(err) : resolve(obj))
+    );
+  });
 
 const PORT = 8080;
 const app = express();
 
 app.get("/", (req, res) => {
-    res.json({
-        working: "YES!"
-    });
+  res.json({
+    working: "YES!"
+  });
 });
 
 app.get("/accounts", (req, res) => {
-    client.getAccounts({}, (err, accounts) => {
-        if (err) {
-            res.json({
-                error: err
-            });
-        } else {
-            res.json(accounts);
-        }
-    });
+  client.getAccounts({}, (err, accounts) => {
+    if (err) {
+      res.json({
+        error: err
+      });
+    } else {
+      res.json(accounts);
+    }
+  });
 });
 
 app.get("/rates", (req, res) => {
-    traverse(Future.of, c => getRate(client, "GBP", c), currencies).fork(
-        err =>
-            res.json({
-                error: err
-            }),
-        rates => res.json(rates)
-    );
+  traverse(Future.of, c => getRate(client, "GBP", c), currencies).fork(
+    err =>
+      res.json({
+        error: err
+      }),
+    rates => res.json(rates)
+  );
 });
 
 app.listen(PORT, () => console.log("Server listening on port", PORT));

@@ -126,7 +126,7 @@ function createRatesRow(currency) {
     const inputValue = currencyInput.value;
     const parsedValue = parseFloat(currencyInput.value);
 
-    function showResult() {
+    function showResult(currency) {
       if (
         isNaN(parsedValue) &&
         !currencyInput.value == "" &&
@@ -140,9 +140,9 @@ function createRatesRow(currency) {
           getSymbol(currency.data.currency) +
           currencyInput.value * currency.data.amount;
       }
-      console.log(isNaN(currencyInput.value));
+      console.log();
     }
-    showResult();
+    showResult(currency);
   });
 
   const inputBox = currencyInput;
@@ -204,7 +204,7 @@ function addRatesToBody(list) {
   document.body.appendChild(ratesTable);
 }
 
-function addAccountsToBody(list) {
+function addAccountsToBody(list, item) {
   const row = document.createElement("tr");
   row.classList.add("table-row");
 
