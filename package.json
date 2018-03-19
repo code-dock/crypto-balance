@@ -11,6 +11,7 @@
     "fluture": "^7.2.2",
     "ramda": "^0.25.0",
     "request": "^2.85.0",
+    "require-dir-all": "^0.4.15",
     "root-require": "^0.3.1"
   }
 }
