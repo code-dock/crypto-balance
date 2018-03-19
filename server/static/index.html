@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<a class="signUpLink" href="">Sign Up</a>
+
+<script>
+const responseType = "code";
+const clientId
+    = "522442f2d6c15f7007af2c7eaf8c59004ce8ebd28462f035acbd8137d3c6f5c4";
+const redirectUrl = "http://localhost:8080/oauth/callback";
+const state = "88888888888888";
+const scope = "wallet:accounts:read";
+
+const url = `https://www.coinbase.com/oauth/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUrl}&state=${state}&scope=${scope}`;
+const link = document.querySelector(".signUpLink");
+link.setAttribute("href", url);
+</script>
+</body>
+</html>
