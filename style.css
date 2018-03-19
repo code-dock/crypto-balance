@@ -1,119 +1,95 @@
 body {
   margin: auto;
   padding: 0;
+  width: 375px;
+  font-size: 18px;
+  text-align: center;
+  color: #4e5c6e;
   background-color: #eee;
 }
 
-#login-page {
-  height: 230px;
-  width: 300px;
-}
-
-#wallets-page {
-  height: 500px;
-  width: 375px;
-}
-
-.banner-rates {
-  /*display: inline;
-  position: absolute;
-  top: 80px;
-  left: -2px;*/
-}
-
-.table {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  width: 100%;
-  background-color: white;
-  border: 1px solid #dae1e9;
-  border-radius: 2px;
-}
-
-.brdr-top {
-  border-top: 1px solid #dae1e9;
-}
-
-.brdr-btm {
-  border-bottom: 1px solid #dae1e9;
-}
-
-.container {
-  background-color: #f5f5f5;
-  position: relative;
-}
-
-.container-inner {
-  margin-top: 20px;
-}
-
-.cell-item {
-  text-align: left;
-  font-size: 16px;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-.icon {
-  text-align: center;
-}
-
-.balance {
-  text-align: right;
-  padding-right: 15px;
-}
-
-.name-currency {
-  font-size: 18px;
-}
-
-.base-currency {
-  color: #4e5c6e;
-}
-
-.native-currency {
-  color: #9ba6b2;
-}
-
-.arrows {
-  text-align: center;
-  padding: 0 6px;
-}
-
-.crypto-img {
+p {
   display: inline;
-  width: 40px;
-  padding: 1px 8px;
+  margin: auto 5px;
 }
 
-#header {
-  display: block;
-  text-align: center;
-  width: 100%;
-  padding: 1.3em 0 1.3em;
+.header {
+  padding: 1.1em 0 1.1em;
   background-color: #0667d0;
-  position: absolute;
-  left: 0px;
-  top: 0px;
 }
 
-#header .title {
-  margin: auto;
-  font-size: 20px;
-  display: inline;
+.title {
+  font-size: 22px;
   color: white;
-}
-
-#header .header-logo {
-  width: 50px;
-  z-index: 100;
+  display: inline;
 }
 
 .subtitle {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 20px;
   color: #0667d0;
+  font-weight: 400;
+}
+
+.input {
+  text-align: center;
+  cursor: pointer;
+  display: inline;
+}
+
+.result-txt,
+.base-currency-txt {
+  font-size: 0.9em;
+  padding-right: 20px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.result-txt {
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.base-currency-value {
+  color: #9ba6b2;
+}
+
+.crypto-currency-name {
+  text-align: left;
+}
+
+.img {
+  width: 40px;
+  display: inline;
+}
+
+/* table */
+
+table {
+  width: 100%;
+}
+
+table,
+tr {
   background-color: white;
-  padding: 0.75em 18px;
-  margin-bottom: 0;
+  border-collapse: collapse;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0 auto;
+}
+
+.table-row-subtitle {
+  height: 2.3em;
+  vertical-align: middle;
+}
+
+.table-row {
+  height: 2.6em;
+}
+
+.right {
+  text-align: right;
+  overflow: hidden;
+  width: 115px;
 }

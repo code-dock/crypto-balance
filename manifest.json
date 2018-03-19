@@ -7,7 +7,7 @@
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "images/icon.png",
     "default_popup": "wallets.html",
     "default_title": "Crypto Currencies"
   },
