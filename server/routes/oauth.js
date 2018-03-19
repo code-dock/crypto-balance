@@ -1,5 +1,7 @@
+/* eslint-disable no-param-reassign */
 const purifier = require("root-require")("./server/lib/routePurifier");
 const request = require("request");
+const Future = require("fluture");
 
 // Request that returns a Future
 const postRequest = (url, options) =>
@@ -21,7 +23,7 @@ module.exports = (credentials, database, successAddress) => req => {
             code,
             client_id: credentials.clientID,
             client_secret: credentials.clientSecret,
-            redirect_uri: redirectUri
+            redirect_uri: "http://localhost:8080/oauth"
         }
     })
         .map(res => {
@@ -29,6 +31,7 @@ module.exports = (credentials, database, successAddress) => req => {
                 accessToken: res.body.access_token,
                 refresh_token: res.body.refresh_token
             };
+            return res;
         })
         .map(_ => purifier.respond.redirect({ path: successAddress }));
 };

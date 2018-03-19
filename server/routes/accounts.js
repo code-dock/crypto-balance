@@ -3,8 +3,10 @@ const Future = require("fluture");
 
 module.exports = req =>
     Future((reject, resolve) => {
-        req.client.getAccounts(
+        req.coinbaseClient.getAccounts(
             {},
             (err, accounts) => (err ? reject(err) : resolve(accounts))
         );
-    }).map(purifier.respond.json);
+    })
+        .map(v => console.log(v) || v)
+        .map(purifier.respond.json);

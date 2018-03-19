@@ -10,7 +10,6 @@
 const Client = require("coinbase").Client;
 const credentials = require("root-require")("./server/.credentials.json");
 const purifier = require("root-require")("./server/lib/routePurifier");
-const errors = require("root-require")("./server/lib/errors");
 const express = require("express");
 const routes = require("require-dir-all")("./routes", {
     recursive: true
@@ -32,9 +31,7 @@ const isLoggedIn = (req, res, next) => {
     const userInfo = database[userID];
 
     if (!userInfo) {
-        const err = errors.unauthorised("User not logged in.");
-        const pureResponse = purifier.respond.custom(err);
-        return purifier.route(pureResponse)(req, res, next);
+        return res.status(401).send("Unauthorised: User not logged in");
     }
 
     const { accessToken, refreshToken } = userInfo;

@@ -37,7 +37,7 @@ const typesExamples = [
 
 ];
 
-**/
+* */
 
 // const allowedFields = {
 //     // eslint-disable-line
@@ -59,7 +59,8 @@ const types = {
     JSON: "json"
 };
 
-const redirect = response => Object.assign({}, response, { type: types.REDIRECT });
+const redirect = response =>
+    Object.assign({}, response, { type: types.REDIRECT });
 
 const render = response => Object.assign({}, response, { type: types.RENDER });
 
@@ -67,14 +68,17 @@ const custom = response => Object.assign({}, response, { type: types.CUSTOM });
 
 const next = response => Object.assign({}, response, { type: types.NEXT });
 
-const json = response => Object.assign({}, response, { type: types.JSON });
+const json = content => ({ type: types.JSON, content });
 
 const sendResponse = (routeHandler, req, res, nxt, err) =>
     routeHandler(req, res, err)
         // Add flash card
         .map(response => {
             if (response.flash !== undefined) {
-                assert(Array.isArray(response.flash), "response.flash must be an array");
+                assert(
+                    Array.isArray(response.flash),
+                    "response.flash must be an array"
+                );
                 req.flash(response.flash[0], response.flash[1]);
             }
 
@@ -119,7 +123,8 @@ const sendResponse = (routeHandler, req, res, nxt, err) =>
             }
         });
 
-const route = routeHandler => (req, res, nxt) => sendResponse(routeHandler, req, res, nxt);
+const route = routeHandler => (req, res, nxt) =>
+    sendResponse(routeHandler, req, res, nxt);
 
 const middleware = routeHandler => (err, req, res, nxt) =>
     sendResponse(routeHandler, req, res, nxt, err);

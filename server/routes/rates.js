@@ -13,6 +13,8 @@ const getRate = (coinbaseClient, baseCurrency, rateCurrency) =>
     });
 
 module.exports = req =>
-    traverse(Future.of, c => getRate(req.client, "GBP", c), currencies).map(
-        purifier.respond.json
-    );
+    traverse(
+        Future.of,
+        c => getRate(req.coinbaseClient, "GBP", c),
+        currencies
+    ).map(purifier.respond.json);
