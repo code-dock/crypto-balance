@@ -8,14 +8,12 @@
  */
 
 const Client = require("coinbase").Client;
-const credentials = require("root-require")("./server/.credentials.json");
+const credentials = require("root-require")("./credentials.json");
 const purifier = require("root-require")("./server/lib/routePurifier");
 const express = require("express");
 const routes = require("require-dir-all")("./routes", {
     recursive: true
 });
-
-console.log(Object.keys(routes));
 
 const PORT = 8080;
 const app = express();

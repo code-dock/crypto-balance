@@ -7,6 +7,4 @@ module.exports = req =>
             {},
             (err, accounts) => (err ? reject(err) : resolve(accounts))
         );
-    })
-        .map(v => console.log(v) || v)
-        .map(purifier.respond.json);
+    }).map(purifier.respond.json);
