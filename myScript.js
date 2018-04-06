@@ -4,6 +4,59 @@ function parseAsJson(response) {
   return response.json();
 }
 
+function showLogInScreen() {
+  const logInContent = document.createElement("div");
+  logInContent.classList.add("login-content");
+  document.body.appendChild(logInContent);
+
+  const content = document.createElement("div");
+  content.classList.add("content-container");
+  logInContent.appendChild(content);
+
+  const icon = document.createElement("img");
+  icon.classList.add("login-icon");
+  icon.setAttribute("src", "/images/icon.png");
+  content.appendChild(icon);
+
+  const button = document.createElement("button");
+  button.classList.add("login-button");
+  button.innerHTML = "Sign in with Coinbase";
+  content.appendChild(button);
+
+  const madeBy = document.createElement("div");
+  madeBy.classList.add("madeby");
+  logInContent.appendChild(madeBy);
+
+  const text = document.createElement("p");
+  text.classList.add("content-container");
+  text.innerHTML = "Made by";
+  madeBy.appendChild(text);
+
+  const link = document.createElement("a");
+  link.innerHTML = "Jack Murphy";
+  link.setAttribute("href", "http://murphyme.co.uk/");
+  link.setAttribute("target", "_blank");
+  text.appendChild(link);
+}
+
+// START rates page
+
+function createHeader() {
+  const header = document.createElement("header");
+  header.classList.add("header");
+  document.body.appendChild(header);
+
+  const title = document.createElement("h1");
+  title.classList.add("title");
+  title.innerHTML = "Goldfish";
+  header.appendChild(title);
+
+  const image = document.createElement("img");
+  image.classList.add("img");
+  image.setAttribute("src", "images/icon.png");
+  header.appendChild(image);
+}
+
 function getSymbol(abr) {
   if (abr === "GBP") {
     return "£";
@@ -56,7 +109,7 @@ function getExtendedName(abr) {
   }
 
   if (abr === "ETH") {
-    return "Etherium";
+    return "Ethereum";
   }
 
   if (abr === "BTC") {
@@ -188,6 +241,7 @@ function createAccountsRow(currency) {
 }
 
 function addRatesToBody(list) {
+  createHeader();
   const row = document.createElement("tr");
 
   const subtitle = document.createElement("td");
@@ -221,7 +275,23 @@ function addAccountsToBody(list, item) {
   document.body.appendChild(accountsTable);
 }
 
+// function parseAsJson(response) {
+//   return response.json();
+// }
+
 fetch("http://localhost:8080/rates")
+  .then(function(response) {
+    if (response.status == 401) {
+      console.log(response.status + " Please sign in");
+      return showLogInScreen();
+    }
+    response.json().then(function(data) {
+      console.log(data);
+    });
+  })
+  .catch(function(err) {
+    console.log("Fetch Error :-S", err);
+  })
   .then(parseAsJson)
   .then(addRatesToBody);
 
