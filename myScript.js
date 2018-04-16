@@ -18,25 +18,22 @@ function showLogInScreen() {
   icon.setAttribute("src", "/images/icon.png");
   content.appendChild(icon);
 
-  const button = document.createElement("button");
+  const button = document.createElement("a");
   button.classList.add("login-button");
+  button.setAttribute(
+    "href",
+    "https://www.coinbase.com/oauth/authorize?response_type=code&client_id=522442f2d6c15f7007af2c7eaf8c59004ce8ebd28462f035acbd8137d3c6f5c4&state=1234&scope=wallet:accounts:read"
+  );
+  button.setAttribute("target", "_blank");
+
   button.innerHTML = "Sign in with Coinbase";
   content.appendChild(button);
 
   const madeBy = document.createElement("div");
   madeBy.classList.add("madeby");
+  madeBy.innerHTML =
+    '<p>Made by <a href="http://murphyme.co.uk/" target="_blank">Jack Murphy</a></p>';
   logInContent.appendChild(madeBy);
-
-  const text = document.createElement("p");
-  text.classList.add("content-container");
-  text.innerHTML = "Made by";
-  madeBy.appendChild(text);
-
-  const link = document.createElement("a");
-  link.innerHTML = "Jack Murphy";
-  link.setAttribute("href", "http://murphyme.co.uk/");
-  link.setAttribute("target", "_blank");
-  text.appendChild(link);
 }
 
 // START rates page
@@ -195,6 +192,10 @@ function createRatesRow(currency) {
       }
       console.log();
     }
+    if (currencyInput.value == "" || currencyInput.value == " ") {
+      resultBox.textContent = 1 * currency.data.amount;
+    }
+
     showResult(currency);
   });
 
@@ -252,7 +253,6 @@ function addRatesToBody(list) {
 
   const rows = list.map(createRatesRow);
   const ratesTable = document.createElement("table");
-  // innerHTML.table = createSubtitle(name);
   ratesTable.appendChild(subtitle);
   rows.forEach(item => ratesTable.appendChild(item));
   document.body.appendChild(ratesTable);
@@ -281,6 +281,28 @@ function addAccountsToBody(list, item) {
 
 fetch("http://localhost:8080/rates")
   .then(function(response) {
+    if (response.status === 401) {
+      console.log(`Looks like a ${response.status}. Please sign in`);
+      showLogInScreen();
+      return;
+    } else if (response.status !== 401) {
+      //  else if (response.status !== 401) {
+      console.log(response.status + ". Try something else");
+      response.json().then(function(data) {
+        console.log(data);
+      });
+      addRatesToBody();
+      return;
+    } else {
+    }
+  })
+  .then(parseAsJson)
+  .catch(function(err) {
+    console.log("Fetch Error :-S", err);
+  });
+
+fetch("http://localhost:8080/accounts")
+  .then(function(response) {
     if (response.status == 401) {
       console.log(response.status + " Please sign in");
       return showLogInScreen();
@@ -292,9 +314,5 @@ fetch("http://localhost:8080/rates")
   .catch(function(err) {
     console.log("Fetch Error :-S", err);
   })
-  .then(parseAsJson)
-  .then(addRatesToBody);
-
-fetch("http://localhost:8080/accounts")
   .then(parseAsJson)
   .then(addAccountsToBody);

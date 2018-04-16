@@ -12,7 +12,7 @@ const credentials = require("root-require")("./credentials.json");
 const purifier = require("root-require")("./server/lib/routePurifier");
 const express = require("express");
 const routes = require("require-dir-all")("./routes", {
-    recursive: true
+  recursive: true
 });
 
 const PORT = 8080;
@@ -23,29 +23,29 @@ const database = {};
 
 // Function to make sure user is logged before calling a route
 const isLoggedIn = (req, res, next) => {
-    // We are temporarily using the request's IP to make things easier
-    const userID = req.ip;
-    // const userID = req.get("X-USER-ID");
-    const userInfo = database[userID];
+  // We are temporarily using the request's IP to make things easier
+  const userID = req.ip;
+  // const userID = req.get("X-USER-ID");
+  const userInfo = database[userID];
 
-    if (!userInfo) {
-        return res.status(401).send("Unauthorised: User not logged in");
-    }
+  if (!userInfo) {
+    return res.status(401).send("Unauthorised: User not logged in");
+  }
 
-    const { accessToken, refreshToken } = userInfo;
-    req.coinbaseClient = new Client({ accessToken, refreshToken });
-    return next();
+  const { accessToken, refreshToken } = userInfo;
+  req.coinbaseClient = new Client({ accessToken, refreshToken });
+  return next();
 };
 
 app.use(express.static(`${__dirname}/static`));
 
 // OAuth route
 app.get(
-    "/oauth",
-    purifier.route(routes.oauth(credentials, database, "/success.html"))
+  "/oauth",
+  purifier.route(routes.oauth(credentials, database, "/success.html"))
 );
 
-// Coibase requests
+// Coinbase requests
 app.get("/accounts", isLoggedIn, purifier.route(routes.accounts));
 app.get("/rates", isLoggedIn, purifier.route(routes.rates));
 
