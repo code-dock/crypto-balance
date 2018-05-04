@@ -1,8 +1,5 @@
 /* eslint-disable */
 
-function parseAsJson(response) {
-  return response.json();
-}
 
 function showLogInScreen() {
   const logInContent = document.createElement("div");
@@ -280,39 +277,92 @@ function addAccountsToBody(list, item) {
 // }
 
 fetch("http://localhost:8080/rates")
-  .then(function(response) {
-    if (response.status === 401) {
-      console.log(`Looks like a ${response.status}. Please sign in`);
-      showLogInScreen();
-      return;
-    } else if (response.status !== 401) {
-      //  else if (response.status !== 401) {
-      console.log(response.status + ". Try something else");
-      response.json().then(function(data) {
-        console.log(data);
-      });
-      addRatesToBody();
-      return;
-    } else {
-    }
-  })
-  .then(parseAsJson)
-  .catch(function(err) {
-    console.log("Fetch Error :-S", err);
-  });
+.then(
+  function(response) {
+    if (response.status !== 200) {
+      console.log('Looks like there was a problem. Status Code: ' +
+        response.status);
+        return showLogInScreen();
 
-fetch("http://localhost:8080/accounts")
-  .then(function(response) {
-    if (response.status == 401) {
-      console.log(response.status + " Please sign in");
-      return showLogInScreen();
     }
+
+    // Examine the text in the response
     response.json().then(function(data) {
       console.log(data);
-    });
-  })
-  .catch(function(err) {
-    console.log("Fetch Error :-S", err);
-  })
-  .then(parseAsJson)
-  .then(addAccountsToBody);
+    })
+    .then(addRatesToBody);
+  }
+)
+
+.catch(function(err) {
+  console.log('Fetch Error :-S', err);
+});
+
+
+
+
+   //
+   // .then(function(response) {
+   //   if (response.status === 401) {
+   //     console.log(`Looks like a ${response.status}. Please sign in`);
+   //     showLogInScreen();
+   //     return;
+   //
+   //
+   //   } else if (response.status !== 401) {
+   //     console.log(response.status + ". Try something else");
+   //     response.json().then(function(data) {
+   //       console.log(data);
+   //     });
+   //
+   //     addRatesToBody();
+   //     return;
+   //   } else {
+   //
+   //   }
+   // })
+   // .then(parseAsJson)
+   // .catch(function(err) {
+   //   console.log("Fetch Error :-S", err);
+   // });
+
+
+
+
+fetch("http://localhost:8080/accounts")
+.then(
+  function(response) {
+    if (response.status !== 200) {
+      console.log('Looks like there was a problem. Status Code: ' +
+        response.status);
+        return showLogInScreen();
+
+        }
+
+    // Examine the text in the response
+    response.json().then(function(data) {
+      console.log(data);
+    })
+    .then(addAccountsToBody);
+  }
+)
+
+.catch(function(err) {
+  console.log('Fetch Error :-S', err);
+});
+
+
+
+  // .then(function(response) {
+  //   if (response.status == 401) {
+  //     console.log(response.status + " Please sign in");
+  //     return showLogInScreen();
+  //   }
+  //   response.json().then(function(data) {
+  //     console.log(data);
+  //   });
+  // })
+  // .catch(function(err) {
+  //   console.log("Fetch Error :-S", err);
+  // })
+  // .then(addAccountsToBody);
