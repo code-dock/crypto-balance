@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /*
-    Run it with `node server.js`
+    Run it with `node server.js` 
 
     You can then access it at:
         localhost:8080/accounts
