@@ -1,6 +1,11 @@
 /* eslint-disable */
 
 
+var CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29",
+    CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8",
+    REDIRECT_URI = "http://murphyme.co.uk/success.html";
+
+
 function showLogInScreen() {
   const logInContent = document.createElement("div");
   logInContent.classList.add("login-content");
@@ -19,7 +24,7 @@ function showLogInScreen() {
   button.classList.add("login-button");
   button.setAttribute(
     "href",
-    "https://www.coinbase.com/oauth/authorize?response_type=code&client_id=522442f2d6c15f7007af2c7eaf8c59004ce8ebd28462f035acbd8137d3c6f5c4&state=1234&scope=wallet:accounts:read"
+    "https://www.coinbase.com/oauth/authorize/oauth_signin?client_id=522442f2d6c15f7007af2c7eaf8c59004ce8ebd28462f035acbd8137d3c6f5c4&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth&response_type=code&scope=wallet%3Aaccounts%3Aread&state=1234"
   );
   button.setAttribute("target", "_blank");
 
@@ -272,18 +277,41 @@ function addAccountsToBody(list, item) {
   document.body.appendChild(accountsTable);
 }
 
+
+// =========================================================================
+//  Not sure how to showLogInScreen else add accounts/rates to body depending
+//  on response of fetch
+//  AND
+//  Any other steps are needed to launch a Chrome extension
+// =========================================================================
+
 // function parseAsJson(response) {
 //   return response.json();
 // }
+//
+// fetch("http://localhost:8080/rates")
+//   .then(parseAsJson)
+//   .then(addRatesToBody);
+//
+// fetch("http://localhost:8080/accounts")
+//   .then(parseAsJson)
+//   .then(addAccountsToBody);
+
+
+
+
+
+
+
 
 fetch("http://localhost:8080/rates")
   .then(
     function(response) {
-      if (response.status !== 200) {
+      if (response.status !== 200 && response.status !== 201) {
         console.log('Looks like there was a problem. Status Code: ' +
           response.status);
-        showLogInScreen();
-        return;
+        return showLogInScreen();
+
       }
 
       // Examine the text in the response
@@ -300,43 +328,14 @@ fetch("http://localhost:8080/rates")
 
 
 
-
-//
-// .then(function(response) {
-//   if (response.status === 401) {
-//     console.log(`Looks like a ${response.status}. Please sign in`);
-//     showLogInScreen();
-//     return;
-//
-//
-//   } else if (response.status !== 401) {
-//     console.log(response.status + ". Try something else");
-//     response.json().then(function(data) {
-//       console.log(data);
-//     });
-//
-//     addRatesToBody();
-//     return;
-//   } else {
-//
-//   }
-// })
-// .then(parseAsJson)
-// .catch(function(err) {
-//   console.log("Fetch Error :-S", err);
-// });
-
-
-
-
 fetch("http://localhost:8080/accounts")
   .then(
     function(response) {
-      if (response.status !== 200) {
+      if (response.status !== 200 && response.status !== 201) {
         console.log('Looks like there was a problem. Status Code: ' +
           response.status);
-        showLogInScreen();
-        return;
+        return showLogInScreen();
+
       }
 
       // Examine the text in the response
@@ -350,19 +349,3 @@ fetch("http://localhost:8080/accounts")
   .catch(function(err) {
     console.log('Fetch Error :-S', err);
   });
-
-
-
-// .then(function(response) {
-//   if (response.status == 401) {
-//     console.log(response.status + " Please sign in");
-//     return showLogInScreen();
-//   }
-//   response.json().then(function(data) {
-//     console.log(data);
-//   });
-// })
-// .catch(function(err) {
-//   console.log("Fetch Error :-S", err);
-// })
-// .then(addAccountsToBody);
