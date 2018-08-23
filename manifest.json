@@ -11,13 +11,14 @@
     "default_title": "Crypto Currencies",
 
     "permissions": [
+      "activeTab",
+      "storage",
       "identity",
       "https://api.coinbase.com/v2/accounts/*",
       "https://www.coinbase.com/oauth/*"
     ]
 
   },
-  "permissions": ["activeTab", "storage"],
 
   "content_scripts": [{
     "matches": ["http://*/*", "https://*/*"],

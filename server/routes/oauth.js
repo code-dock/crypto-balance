@@ -23,7 +23,7 @@ module.exports = (credentials, database, successAddress) => req => {
             code,
             client_id: credentials.clientID,
             client_secret: credentials.clientSecret,
-            redirect_uri: "http://localhost:8080/oauth"
+            redirect_uri: "http://murphyme.co.uk/success.html"
         }
     })
         .map(res => {

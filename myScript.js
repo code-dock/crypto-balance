@@ -1,11 +1,6 @@
 /* eslint-disable */
 
 
-var CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29",
-    CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8",
-    REDIRECT_URI = "http://murphyme.co.uk/success.html";
-
-
 function showLogInScreen() {
   const logInContent = document.createElement("div");
   logInContent.classList.add("login-content");
@@ -24,8 +19,8 @@ function showLogInScreen() {
   button.classList.add("login-button");
   button.setAttribute(
     "href",
-    "https://www.coinbase.com/oauth/authorize/oauth_signin?client_id=522442f2d6c15f7007af2c7eaf8c59004ce8ebd28462f035acbd8137d3c6f5c4&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth&response_type=code&scope=wallet%3Aaccounts%3Aread&state=1234"
-  );
+    "https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all"
+    );
   button.setAttribute("target", "_blank");
 
   button.innerHTML = "Sign in with Coinbase";
@@ -36,7 +31,14 @@ function showLogInScreen() {
   madeBy.innerHTML =
     '<p>Made by <a href="http://murphyme.co.uk/" target="_blank">Jack Murphy</a></p>';
   logInContent.appendChild(madeBy);
+
+  //
+  // button.addEventListener("click", function() {
+  //   logInContent.classList.add("hidden");
+  // });
+
 }
+
 
 // START rates page
 
@@ -57,78 +59,76 @@ function createHeader() {
 }
 
 function getSymbol(abr) {
-  if (abr === "GBP") {
-    return "£";
+  switch (abr) {
+    case "GBP":
+      return "£";
+      break;
+    case "USD":
+      return "$";
+      break;
+    case "EUR":
+      return "€";
+      break;
+    default:
+      return abr;
+      break;
   }
-
-  if (abr === "USD") {
-    return "$";
-  }
-
-  if (abr === "EUR") {
-    return "€";
-  }
-  return abr;
 }
 
 function getIcon(abr) {
-  if (abr === "BCH") {
-    return "bch.png";
+  switch (abr) {
+    case "BCH":
+      return "bch.png";
+    case "LTC":
+      return "ltc.png";
+      break;
+    case "ETH":
+      return "eth.jpg";
+      break;
+    case "BTC":
+      return "btc.png";
+      break;
+    case "EUR":
+      return "eur.png";
+      break;
+    case "USD":
+      return "usd.png";
+      break;
+    default:
+      return "placeholder.png";
+      break;
   }
-
-  if (abr === "LTC") {
-    return "ltc.png";
-  }
-
-  if (abr === "ETH") {
-    return "eth.jpg";
-  }
-
-  if (abr === "BTC") {
-    return "btc.png";
-  }
-
-  if (abr === "EUR") {
-    return "eur.png";
-  }
-  if (abr === "USD") {
-    return "usd.png";
-  }
-
-  return "placeholder.png";
 }
 
 function getExtendedName(abr) {
-  if (abr === "BCH") {
-    return "Bitcoin Cash";
+  switch (abr) {
+    case "BCH":
+      return "Bitcoin Cash";
+      break;
+    case "LTC":
+      return "Litecoin";
+      break;
+    case "ETH":
+      return "Ethereum";
+      break;
+    case "BTC":
+      return "Bitcoin";
+      break;
+    case "GBP":
+      return "British Pound";
+      break;
+    case "EUR":
+      return "Euro";
+      break;
+    case "USD":
+      return "US Dollar";
+      break;
+    default:
+      return abr;
+      break;
   }
-
-  if (abr === "LTC") {
-    return "Litecoin";
-  }
-
-  if (abr === "ETH") {
-    return "Ethereum";
-  }
-
-  if (abr === "BTC") {
-    return "Bitcoin";
-  }
-
-  if (abr === "GBP") {
-    return "British Pound";
-  }
-
-  if (abr === "EUR") {
-    return "Euro";
-  }
-
-  if (abr === "USD") {
-    return "US Dollar";
-  }
-
-  return abr;
 }
+
 
 function createRatesRow(currency) {
   const row = document.createElement("tr");
@@ -285,17 +285,21 @@ function addAccountsToBody(list, item) {
 //  Any other steps are needed to launch a Chrome extension
 // =========================================================================
 
-// function parseAsJson(response) {
-//   return response.json();
-// }
-//
-// fetch("http://localhost:8080/rates")
-//   .then(parseAsJson)
-//   .then(addRatesToBody);
-//
-// fetch("http://localhost:8080/accounts")
-//   .then(parseAsJson)
-//   .then(addAccountsToBody);
+var CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29";
+var CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8";
+var REDIRECT_URI = "http://murphyme.co.uk/success.html";
+var ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
+var REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY";
+
+console.log("The webpage you want is https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all");
+
+// if window.location = redirect_uri, check for parameters & get/store ACCESS_TOKEN_KEY
+console.log(window.location);
+// function
+
+// post back to coinbase server with stored ACCESS_TOKEN_KEY attached in post req hdr
+
+// coinbase to return json data
 
 
 
@@ -303,49 +307,117 @@ function addAccountsToBody(list, item) {
 
 
 
+// If accessToken fetch data from accounts endpoint
+function fetchGainAndPain() {
+  var accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 
-fetch("http://localhost:8080/rates")
-  .then(
-    function(response) {
-      if (response.status !== 200 && response.status !== 201) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return showLogInScreen();
+  if (!accessToken)
+    return restoreOriginalState(true);
 
-      }
 
-      // Examine the text in the response
-      response.json().then(function(data) {
-          console.log(data);
+  fetch('https://api.coinbase.com/v2/accounts?limit=100', {
+      headers: {
+        "Authorization": "Bearer " + accessToken
+      },
+    })
+    .then(function(response) {
+      if (response.status === 401)
+        return refreshTokens();
+
+      return response.json();
+      console.error("200 Yay");
+    })
+    .then(function(json) {
+      var accountData = json.data;
+      return addRatesToBody(accountData);
+      console.log("Nearly there");
+    })
+    .catch(function(err) {
+      console.error('Unable to get the latest price:', err);
+    });
+}
+
+
+// Look at redirect_uri and Make POST request to coin.../oauth/token && Send token to server
+function connectCoinbase() {
+  console.log("https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all");
+
+// IDK what chrome.identity means
+chrome.identity.launchWebAuthFlow({
+      'url': "https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all",
+      'interactive': true
+    },
+    function(redirect_url) {
+      var code = redirect_url.split("=")[1]
+      fetch('https://www.coinbase.com/oauth/token', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'CB-VERSION': '2017-05-19'
+        },
+        body: JSON.stringify({
+          grant_type: 'authorization_code',
+          code: code,
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          redirect_uri: REDIRECT_URI,
         })
-        .then(addRatesToBody);
-    }
-  )
+      }).then(function(response) {
+        if (response.ok) {
+          response.json().then(function(data) {
+            localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token);
+            localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token);
+            fetchGainAndPain();
+          });
+        }
+      }).catch(function(err) {
+        console.error(err);
+      });
+    });
+}
 
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
-
-
-
-fetch("http://localhost:8080/accounts")
-  .then(
-    function(response) {
-      if (response.status !== 200 && response.status !== 201) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return showLogInScreen();
-
-      }
-
-      // Examine the text in the response
+function refreshTokens() {
+  fetch('https://www.coinbase.com/oauth/token', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      grant_type: 'refresh_token',
+      refresh_token: localStorage.getItem(REFRESH_TOKEN_KEY),
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      redirect_uri: REDIRECT_URI,
+    })
+  }).then(function(response) {
+    if (response.ok) {
       response.json().then(function(data) {
-          console.log(data);
-        })
-        .then(addAccountsToBody);
-    }
-  )
+        localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token);
+        localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token);
+        fetchGainAndPain();
+        console.log("refreshTokens.ok");
 
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
+      });
+    } else {
+      console.log("clearTokens.ok");
+
+    };
+  }).catch(function(err) {
+    console.error(err);
   });
+}
+
+function restoreOriginalState(reload) {
+  localStorage.clear();
+  console.log("localClear.ok");
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Load data
+  fetchGainAndPain();
+  console.log("DOMContentLoaded.ok");
+  showLogInScreen();
+});

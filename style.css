@@ -154,3 +154,6 @@ tr {
   overflow: hidden;
   width: 115px;
 }
+.hidden {
+  display: none;
+}

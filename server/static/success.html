@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="static-style.css">
-    <title>Success page</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="static-style.css">
+  <title>Success page</title>
 </head>
+
 <body>
 
   <div class="oauth-container">
-  <div class="content-box">
-    <h2>Success</h2>
-    <p><strong>crypto-balance</strong> has been successfully authorised to access your Coinbase account.</p>
-</div>
+    <div class="content-box">
+      <h2>Success</h2>
+      <p><strong>crypto-balance</strong> has been successfully authorised to access your Coinbase account.</p>
+    </div>
 
+    <script type="text/javascript">
+      //onload check for param code = ...
+      window.addEventListener('DOMContentLoaded', checkParams);
+
+      function checkParams(e) {
+        //Check if params = true && params contains 'code='
+        e.preventDefault();
+
+        if (window.location.search.includes("code=")) {
+          localStorage.setItem(key, value);
+          console.log(localStorage);
+        }
+
+        chrome.tabs.query({}, function(data) {
+          data.forEach(function(item) {
+
+            console.log(item.Location);
+          });
+        });
+        
+        // else show popup
+        console.log("Huston, we have a problem");
+        return;
+        //Store name:value pair in localstorage
+      }
+      // store code param in safe place to be accessed be extension
+
+      // exchange code for auth token
+    </script>
 
 </body>
+
 </html>
