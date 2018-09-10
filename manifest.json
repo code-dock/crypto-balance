@@ -1,30 +1,35 @@
 {
   "manifest_version": 2,
-
   "name": "Crypto Currencies",
+  "short_name": "Cryptos",
   "description": "This extension allows the user to view his Crypto Currencies using a Coin Base account",
   "version": "1.0",
-
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "identity",
+    "https://api.coinbase.com/v2/accounts/*",
+    "https://www.coinbase.com/oauth/*",
+    "http://murphyme.co.uk/success.html/*"
+  ],
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "wallets.html",
-    "default_title": "Crypto Currencies",
-
-    "permissions": [
-      "activeTab",
-      "storage",
-      "identity",
-      "https://api.coinbase.com/v2/accounts/*",
-      "https://www.coinbase.com/oauth/*"
-    ]
-
+    "default_title": "Crypto Currencies"
   },
-
   "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*"],
-    "js": ["myScript.js"]
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+    ],
+    "js": [
+      "myScript.js"
+    ]
   }],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   }
 }

@@ -5,9 +5,6 @@
     "repository": "https://github.com/code-dock/crypto-balance.git",
     "author": "Marcelo Lazaroni <lazaronijunior@gmail.com>",
     "license": "MIT",
-    "permissions": [
-          "tabs"
-        ],
     "scripts": {
         "run-server": "node ./server/index.js"
     },

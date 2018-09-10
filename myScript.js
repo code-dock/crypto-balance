@@ -20,7 +20,7 @@ function showLogInScreen() {
   button.setAttribute(
     "href",
     "https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all"
-    );
+  );
   button.setAttribute("target", "_blank");
 
   button.innerHTML = "Sign in with Coinbase";
@@ -38,7 +38,6 @@ function showLogInScreen() {
   // });
 
 }
-
 
 // START rates page
 
@@ -139,19 +138,19 @@ function createRatesRow(currency) {
 
   const icon = document.createElement("img");
   icon.classList.add("img");
-  icon.setAttribute("src", "images/" + getIcon(currency.data.base));
+  icon.setAttribute("src", "images/" + getIcon(currency.data.rates));
   icon.setAttribute("alt", "");
   colIcon.appendChild(icon);
   row.appendChild(colIcon);
 
   const colName = document.createElement("td");
   colName.classList.add("crypto-currency-name");
-  colName.innerHTML = getExtendedName(currency.data.base);
+  colName.innerHTML = getExtendedName(currency.data.rates);
   row.appendChild(colName);
 
   const colInput = document.createElement("td");
   const currencyInput = document.createElement("input");
-  currencyInput.classList.add(currency.data.base + "input");
+  currencyInput.classList.add(currency.data.rates + "input");
   currencyInput.classList.add("input");
   currencyInput.setAttribute("maxlength", "2");
   currencyInput.setAttribute("size", "1");
@@ -168,7 +167,7 @@ function createRatesRow(currency) {
   colResult.classList.add("right");
   const resultSpan = document.createElement("span");
   resultSpan.classList.add("result-txt");
-  resultSpan.classList.add(currency.data.base + "result");
+  resultSpan.classList.add(currency.data.rates + "result");
   resultSpan.innerHTML = currency.data.amount;
 
   colResult.appendChild(resultSpan);
@@ -192,7 +191,6 @@ function createRatesRow(currency) {
           getSymbol(currency.data.currency) +
           currencyInput.value * currency.data.amount;
       }
-      console.log();
     }
     if (currencyInput.value == "" || currencyInput.value == " ") {
       resultBox.textContent = 1 * currency.data.amount;
@@ -239,7 +237,7 @@ function createAccountsRow(currency) {
   colInfo.appendChild(textNode);
   row.appendChild(colInfo);
 
-  console.log(getExtendedName(currency.balance.currency));
+  // console.log(getExtendedName(currency.balance.currency));
   return row;
 }
 
@@ -277,147 +275,213 @@ function addAccountsToBody(list, item) {
   document.body.appendChild(accountsTable);
 }
 
+//
+// var CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29",
+//   CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8",
+//   REDIRECT_URI = "http://murphyme.co.uk/success.html",
+//   ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY",
+//   REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY",
+//   authorization_code = "authorization_code",
+//   refresh_token = "refresh_token";
+//
+// // Show Login Screen
+// document.addEventListener("DOMContentLoaded", showLogInScreen);
+//
+// // Check urls
+// chrome.tabs.query({}, function(tabs) {
+//   var i;
+//   for (i = 0; i < tabs.length; i++) {
+//     var tab = tabs[i];
+//     if (tab.url.includes(REDIRECT_URI)) {
+//       // Split url
+//       var splitUrl = tab.url.split("?"),
+//         params = splitUrl[1];
+//       // Split params
+//       var splitParams = params.split("="),
+//         value = params.split("=")[1];
+//       // Store authorization_code
+//       localStorage.setItem(authorization_code, value);
+//       break;
+//     }
+//   }
+//   var temporaryCode = localStorage.getItem(authorization_code);
+//   // Make post request to Coinbase server with grant_type= authorization_code
+//   exchangeAuthorizationCode(temporaryCode);
+// });
+//
+// function exchangeAuthorizationCode(temporaryCode) {
+//   fetch('https://api.coinbase.com/oauth/token' +
+//     "?grant_type=" + authorization_code +
+//     "&code=" + temporaryCode +
+//     "&client_id=" + CLIENT_ID +
+//     "&client_secret=" + CLIENT_SECRET +
+//     "&redirect_uri=" + REDIRECT_URI, {
+//       method: 'post',
+//       headers: {
+//         'CB-VERSION': '2017-05-19'
+//       }
+//     }).then(function(response) {
+//     console.log("first request success");
+//     // IF response is successful,
+//     if (response.status === 200) {
+//       //// Turn response into a JSON object
+//       response.json();
+//       //// Store ACCESS_TOKEN and REFRESH_TOKEN
+//       localStorage.setItem(REFRESH_TOKEN_KEY, response.refresh_token);
+//       localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
+//       var currentRefreshTokenValue = localStorage.getItem(REFRESH_TOKEN_KEY);
+//       var currentAccessTokenValue = localStorage.getItem(ACCESS_TOKEN_KEY);
+//
+// ***// Create html
+//
+//    // Show data in html
+//
+//       // ELSE IF response is unauthorised && ACCESS_TOKEN/REFRESH_TOKEN already stored in localStorage,
+//     } else if (response.status === 401 && response.access_token === 'undefined') {
+//       //// Make post request to Coinbase server,
+//       //// Use currentRefreshTokenValue to get new tokens
+//       fetch('https://api.coinbase.com/oauth/token' +
+//           "?grant_type=" + refresh_token +
+//           "&refresh_token=" + currentRefreshTokenValue +
+//           "&client_id=" + CLIENT_ID +
+//           "&client_secret=" + CLIENT_SECRET, {
+//             method: 'post',
+//             headers: {
+//               'CB-VERSION': '2017-05-19'
+//             }
+//           })
+//         .then(function(response) {
+//           console.log(response);
+//         });
+//
 
-// =========================================================================
-//  Not sure how to showLogInScreen else add accounts/rates to body depending
-//  on response of fetch
-//  AND
-//  Any other steps are needed to launch a Chrome extension
-// =========================================================================
+//     }
+//     // ELSE IF unauthorised && no ACCESS_TOKEN/REFRESH_TOKEN in localStorage,
+//     //// Make initial POST request again to get tokens
+//   });
+// }
 
-var CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29";
-var CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8";
-var REDIRECT_URI = "http://murphyme.co.uk/success.html";
-var ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
-var REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY";
-
-console.log("The webpage you want is https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all");
-
-// if window.location = redirect_uri, check for parameters & get/store ACCESS_TOKEN_KEY
-console.log(window.location);
-// function
-
-// post back to coinbase server with stored ACCESS_TOKEN_KEY attached in post req hdr
-
-// coinbase to return json data
+// IF session not expired,
+//// Make POST request with ACCESS_TOKEN in header to retrieve data
+//// Remove Login screen
+//// Show Wallets and exchange rates page
+// ELSE IF session expired,
+//// Use stored REFRESH_TOKEN to get new tokens
+//// Make POST request with ACCESS_TOKEN in header to retrieve data
+// Create html
+// Show data in html
 
 
+// function retrieveJSONData() {
+//   fetch('https://api.coinbase.com/v2/currencies', {
+//       headers: {
+//         "Authorization": "Bearer " + accessTokenValue
+//       },
+//     })
+//     .then(function(response) {
+//       console.log("Retrieving");
+//     })
+// }
 
 
+fetch('https://api.coinbase.com/v2/exchange-rates?currency=GBP')
+  .then(response => response.json())
+  .then(function(response) {
+    var i, rates = response.data.rates,
+      rateNames = Object.keys(rates),
+      rateValues = Object.values(rates);
 
-
-
-// If accessToken fetch data from accounts endpoint
-function fetchGainAndPain() {
-  var accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-
-  if (!accessToken)
-    return restoreOriginalState(true);
-
-
-  fetch('https://api.coinbase.com/v2/accounts?limit=100', {
-      headers: {
-        "Authorization": "Bearer " + accessToken
-      },
-    })
-    .then(function(response) {
-      if (response.status === 401)
-        return refreshTokens();
-
-      return response.json();
-      console.error("200 Yay");
-    })
-    .then(function(json) {
-      var accountData = json.data;
-      return addRatesToBody(accountData);
-      console.log("Nearly there");
-    })
-    .catch(function(err) {
-      console.error('Unable to get the latest price:', err);
-    });
-}
-
-
-// Look at redirect_uri and Make POST request to coin.../oauth/token && Send token to server
-function connectCoinbase() {
-  console.log("https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all");
-
-// IDK what chrome.identity means
-chrome.identity.launchWebAuthFlow({
-      'url': "https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID + "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) + "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all",
-      'interactive': true
-    },
-    function(redirect_url) {
-      var code = redirect_url.split("=")[1]
-      fetch('https://www.coinbase.com/oauth/token', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'CB-VERSION': '2017-05-19'
-        },
-        body: JSON.stringify({
-          grant_type: 'authorization_code',
-          code: code,
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-          redirect_uri: REDIRECT_URI,
-        })
-      }).then(function(response) {
-        if (response.ok) {
-          response.json().then(function(data) {
-            localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token);
-            localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token);
-            fetchGainAndPain();
-          });
-        }
-      }).catch(function(err) {
-        console.error(err);
-      });
-    });
-}
-
-function refreshTokens() {
-  fetch('https://www.coinbase.com/oauth/token', {
-    method: 'post',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      grant_type: 'refresh_token',
-      refresh_token: localStorage.getItem(REFRESH_TOKEN_KEY),
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      redirect_uri: REDIRECT_URI,
-    })
-  }).then(function(response) {
-    if (response.ok) {
-      response.json().then(function(data) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token);
-        localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token);
-        fetchGainAndPain();
-        console.log("refreshTokens.ok");
-
-      });
-    } else {
-      console.log("clearTokens.ok");
-
-    };
-  }).catch(function(err) {
-    console.error(err);
+    for (i = 0; i < rateNames.length; i++) {
+      getCurrencyName(rateNames[i], rateValues[i]);
+    }
   });
+
+
+function getCurrencyName(abr, val) {
+  switch (abr) {
+    case "BTC":
+    console.log(`${abr} is worth ${val}`);
+      return "BTC";
+      break;
+    case "ETH":
+    console.log(`${abr} is worth ${val}`);
+      return "ETH";
+      break;
+    case "USD":
+    console.log(`${abr} is worth ${val}`);
+      return "USD";
+      break;
+    case "BCH":
+    console.log(`${abr} is worth ${val}`);
+      return "BCH";
+      break;
+    case "LTC":
+    console.log(`${abr} is worth ${val}`);
+      return "LTC";
+      break;
+    default:
+  }
 }
 
-function restoreOriginalState(reload) {
-  localStorage.clear();
-  console.log("localClear.ok");
 
-}
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Load data
-  fetchGainAndPain();
-  console.log("DOMContentLoaded.ok");
-  showLogInScreen();
-});
+// Show Login Screen
+
+// Check urls
+// Split url to get params
+// Store authorization_code
+
+// Make post request to Coinbase server with grant_type= authorization_code
+// IF response is successful,
+//// Turn response into a JSON object
+//// Store ACCESS_TOKEN and REFRESH_TOKEN
+// ELSE IF response is unauthorised && ACCESS_TOKEN/REFRESH_TOKEN already stored in localStorage,
+//// Make post request to Coinbase server,
+//// Use stored REFRESH_TOKEN to get new tokens
+// ELSE IF unauthorised && no ACCESS_TOKEN/REFRESH_TOKEN in localStorage,
+//// Make initial POST request again to get tokens
+
+// IF session not expired,
+//// Make POST request with ACCESS_TOKEN in header to retrieve data
+//// Remove Login screen
+//// Show Wallets and exchange rates page
+// ELSE IF session expired,
+//// Use stored REFRESH_TOKEN to get new tokens
+//// Make POST request with ACCESS_TOKEN in header to retrieve data
+
+
+
+
+
+
+// if object status = 401, post req using refresh access_token
+// if (response.status === 401) {
+//   console.log(response.status + ' problem. Please log in again');
+//
+//   fetch('https://api.coinbase.com/oauth/token' + "?grant_type=" + refresh_token + "&refresh_token=" + refreshTokenValue + "&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET, {
+//       method: 'post',
+//       headers: {
+//         'CB-VERSION': '2017-05-19'
+//       }
+//     })
+//     .then(function(response) {
+//       console.log(response);
+//     });
+//   // retrieveJSONData(refreshToken);
+//
+// } else if (response.status === 200) {
+//
+//   console.log(response.status + ' yay!!');
+//   // Convert response into JSON
+//   response.json();
+//   console.log(response.json());
+//
+//   localStorage.setItem(ACCESS_TOKEN_KEY, response.access_token);
+//   localStorage.setItem(REFRESH_TOKEN_KEY, response.refresh_token);
+//   console.log(`response.access_token = ${response.access_token}`);
+//   console.log(`response.refresh_token = ${response.refresh_token}`);
+//
+//   var accessTokenValue = localStorage.getItem(ACCESS_TOKEN_KEY),
+//     refreshTokenValue = localStorage.getItem(REFRESH_TOKEN_KEY);
+//   retrieveJSONData();
+// }

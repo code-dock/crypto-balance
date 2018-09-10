@@ -26,18 +26,44 @@
         //Check if params = true && params contains 'code='
         e.preventDefault();
 
-        if (window.location.search.includes("code=")) {
-          localStorage.setItem(key, value);
-          console.log(localStorage);
-        }
+        // if (window.location.search.includes("code")) {
+        //   var key = "code",
+        //       value = "x";
+        //       localStorage.setItem(key, value);
+        //       console.log(localStorage);
+        //       console.log(window.location.href);
+        //     }
 
-        chrome.tabs.query({}, function(data) {
-          data.forEach(function(item) {
+//
+// var url = window.location.href;
+//
+// var queryparams = url.split('?')[1];
+//
+// var params = queryparams.split('&');
+//
+// var pair = null,
+//     data = [];
+//
+// params.forEach(function(d) {
+//     pair = d.split('=');
+//     data.push({key: pair[0], value: pair[1]});
+//     console.log(pair);
+//
+// });
+//
+//
+// "optional_permissions": [
+//   "tabs",
+//   "activeTab",
+//   "storage",
+//   "identity",
+//   "https://api.coinbase.com/v2/accounts/*",
+//   "https://www.coinbase.com/oauth/*",
+//   "http://murphyme.co.uk/success.html/*"
+// ]
+// },
 
-            console.log(item.Location);
-          });
-        });
-        
+
         // else show popup
         console.log("Huston, we have a problem");
         return;
