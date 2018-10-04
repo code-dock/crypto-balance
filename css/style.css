@@ -1,0 +1,205 @@
+body {
+  margin: auto;
+  padding: 0;
+  width: 375px;
+  min-height: 540px;
+  background-color: #2a374d;
+  font-size: 17px;
+  overflow: hidden;
+  color: #fff;
+}
+
+/*======================================
+/////////   log in screen   /////////////
+=======================================*/
+
+.login-icon {
+  display: block;
+  margin: auto;
+  margin-bottom: 50px;
+  width: 60%;
+}
+
+/*======================================
+///////////   Rates Page   /////////////
+=======================================*/
+
+.header__title {
+  margin: 25px 35px;
+  letter-spacing: 1px;
+}
+
+.header__icon {
+  width: 40px;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+.table__title {
+  font-size: 20px;
+  letter-spacing: 1px;
+  display: inline;
+  margin: 0;
+  padding: 0 25px;
+}
+
+.table__currency {
+  display: inline-block;
+  position: relative;
+  right: -70px;
+}
+
+.table__currency-toggle {
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  padding: 0 2px;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.table__currency-toggle input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.table__currency-toggle--symbol {
+  transition: all .1s ease-in-out;
+}
+
+.table__currency-toggle:hover input~.table__currency-toggle--symbol {
+  opacity: 0.8;
+  color: #0082ad;
+}
+
+.table__currency-toggle input:checked~.table__currency-toggle--symbol {
+  color: deepskyblue;
+}
+
+/* accounts */
+
+.content-accounts {
+  text-align: left;
+  margin: 25px 10px;
+  padding: 5px;
+}
+
+.table-accounts {
+  border-collapse: collapse;
+  margin: 2px auto 0px;
+  width: 85%;
+}
+
+.table-accounts__row {
+  border: none;
+  line-height: 2.8;
+}
+
+.table-accounts__icon {
+  width: 51px;
+}
+
+.placeholder {
+  vertical-align: middle;
+  display: inline;
+  width: 40px;
+}
+
+.table-accounts__crypto-amount {
+  width: 30px;
+}
+
+.table-accounts__equals {
+  width: 10px;
+  padding: 0 10px;
+}
+
+.table-accounts__currency-amount {
+  color: orangered;
+}
+
+.table-accounts__currency-amount:nth-child(even) {
+  color: lawngreen;
+}
+
+/* rates */
+
+.content-rates {
+  text-align: left;
+  margin: 15px 10px;
+  padding: 5px;
+}
+
+.table-rates {
+  border-collapse: collapse;
+  margin: 5px auto;
+  color: #fff;
+  width: 86%;
+}
+
+.table-rates__row {
+  background-color: #364764;
+  border: none;
+  line-height: 2;
+}
+
+.table-rates__row:nth-child(even) {
+  background-color: #2a374d;
+}
+
+.table-rates__row td {
+  padding: 0 10px;
+}
+
+.table-rates__quantity {
+  text-align: center;
+  width: 30px;
+}
+
+.table-rates__equals {
+  padding: 0 15px !important;
+}
+
+/* Footer */
+
+.footer {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  z-index: 1001;
+}
+
+.footer-menu {
+  list-style: none;
+  margin: 0;
+}
+
+.footer-menu__link {
+  display: inline-block;
+  line-height: 2;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.footer-menu__link:hover {
+  background-color: #364764;
+}
+
+
+/*======================================
+///////////   Help Page   /////////////
+=======================================*/
+
+
+#helpScreen {
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  background-color: inherit;
+}

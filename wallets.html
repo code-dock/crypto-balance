@@ -6,10 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <title>Extension</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="/manifest.json">
-  <script src="myScript.js" type="text/javascript">
-  </script>
+  <script src="background.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -18,71 +17,77 @@
   <h2 class="header__title">Chocolate coin</h2>
 </div>
 
-<div class="content-rates">
-<h2 class="table__title">Rates</h2>
-  <table class="table-rates">
-    <tr class="table-rates__row">
-      <td class="table-rates__quantity">1</td>
-      <td class="table-rates__crypto-code">BTC</td>
-      <td class="table-rates__equals"> ≃ </td>
-      <td class="table-rates__currency-symbol"> $ </td>
-      <td class="table-rates__currency-amount">5570</td>
+<div class="content-accounts">
+<h2 class="table__title">Your Wallets</h2>
+<div class="table__currency">
+  <label class="table__currency-toggle">
+  <input type="radio" checked="checked" name="radio">
+  <span class="table__currency-toggle--symbol">$</span>
+</label>
+<label class="table__currency-toggle">
+  <input type="radio" name="radio">
+  <span class="table__currency-toggle--symbol">£</span>
+</label>
+<label class="table__currency-toggle">
+  <input type="radio" name="radio">
+  <span class="table__currency-toggle--symbol">€</span>
+</label>
+
+</div>
+  <table class="table-accounts">
+    <tr class="table-accounts__row">
+      <td class="table-accounts__icon"><img class="placeholder" src="images/usd.png"/></td>
+      <td class="table-accounts__crypto-amount">0.00044</td>
+      <td class="table-accounts__equals"> ≃ </td>
+      <td class="table-accounts__currency-amount">$70.95</td>
     </tr>
-    <tr class="table-rates__row">
-      <td class="table-rates__quantity">1</td>
-      <td class="table-rates__crypto-code">BTC</td>
-      <td class="table-rates__equals"> ≃ </td>
-      <td class="table-rates__currency-symbol"> $ </td>
-      <td class="table-rates__currency-amount">5570</td>
+    <tr class="table-accounts__row">
+      <td class="table-accounts__icon"><img class="placeholder" src="images/btc.png"/></td>
+      <td class="table-accounts__crypto-amount">0.00044</td>
+      <td class="table-accounts__equals"> ≃ </td>
+      <td class="table-accounts__currency-amount">$70.95</td>
     </tr>
-    <tr class="table-rates__row">
-      <td class="table-rates__quantity">1</td>
-      <td class="table-rates__crypto-code">BTC</td>
-      <td class="table-rates__equals"> ≃ </td>
-      <td class="table-rates__currency-symbol"> $ </td>
-      <td class="table-rates__currency-amount">5570</td>
-    </tr>
-    <tr class="table-rates__row">
-      <td class="table-rates__quantity">1</td>
-      <td class="table-rates__crypto-code">BTC</td>
-      <td class="table-rates__equals"> ≃ </td>
-      <td class="table-rates__currency-symbol"> $ </td>
-      <td class="table-rates__currency-amount">5570</td>
-    </tr>
-    <tr class="table-rates__row">
-      <td class="table-rates__quantity">1</td>
-      <td class="table-rates__crypto-code">BTC</td>
-      <td class="table-rates__equals"> ≃ </td>
-      <td class="table-rates__currency-symbol"> $ </td>
-      <td class="table-rates__currency-amount">5570</td>
+    <tr class="table-accounts__row">
+      <td class="table-accounts__icon"><img class="placeholder" src="images/ltc.png"/></td>
+      <td class="table-accounts__crypto-amount">0.00044</td>
+      <td class="table-accounts__equals"> ≃ </td>
+      <td class="table-accounts__currency-amount">$70.95</td>
     </tr>
   </table>
 </div>
 
-
-<div class="content-accounts">
-<h2 class="table__title">Your Wallets</h2>
-  <table class="table-accounts">
-    <tr class="table-accounts__row">
-      <td class="table-accounts__icon"><img class="placeholder" src="images/icon.png"/></td>
-      <td class="table-accounts__crypto-amount">0.00044</td>
-      <td class="table-accounts__equals"> ≃ </td>
-      <td class="table-accounts__currency-symbol"> $ </td>
-      <td class="table-accounts__currency-amount">70</td>
+<div class="content-rates">
+<h2 class="table__title">Rates ($)</h2>
+  <table class="table-rates">
+    <tr class="table-rates__row">
+      <td class="table-rates__currency-amount">$5570.15</td>
+      <td class="table-rates__equals"> ≃ </td>
+      <td class="table-rates__crypto-code">BTC</td>
+      <td class="table-rates__quantity">1</td>
     </tr>
-    <tr class="table-accounts__row">
-      <td class="table-accounts__icon"><img class="placeholder" src="images/icon.png"/></td>
-      <td class="table-accounts__crypto-amount">0.00044</td>
-      <td class="table-accounts__equals"> ≃ </td>
-      <td class="table-accounts__currency-symbol"> $ </td>
-      <td class="table-accounts__currency-amount">70</td>
+    <tr class="table-rates__row">
+      <td class="table-rates__currency-amount">$5570.15</td>
+      <td class="table-rates__equals"> ≃ </td>
+      <td class="table-rates__crypto-code">BTC</td>
+      <td class="table-rates__quantity">1</td>
     </tr>
-    <tr class="table-accounts__row">
-      <td class="table-accounts__icon"><img class="placeholder" src="images/icon.png"/></td>
-      <td class="table-accounts__crypto-amount">0.00044</td>
-      <td class="table-accounts__equals"> ≃ </td>
-      <td class="table-accounts__currency-symbol"> $ </td>
-      <td class="table-accounts__currency-amount">70</td>
+    <tr class="table-rates__row">
+      <td class="table-rates__currency-amount">$5570.15</td>
+      <td class="table-rates__equals"> ≃ </td>
+      <td class="table-rates__crypto-code">BTC</td>
+      <td class="table-rates__quantity">1</td>
+    </tr>
+    <tr class="table-rates__row">
+      <td class="table-rates__currency-amount">$5570.15</td>
+      <td class="table-rates__equals"> ≃ </td>
+      <td class="table-rates__crypto-code">BTC</td>
+      <td class="table-rates__quantity">1</td>
+    </tr>
+    <tr class="table-rates__row">
+      <td class="table-rates__currency-amount">$5570.15</td>
+      <td class="table-rates__equals"> ≃ </td>
+      <td class="table-rates__crypto-code">BTC</td>
+      <td class="table-rates__quantity">1</td>
     </tr>
   </table>
 </div>
@@ -90,12 +95,20 @@
 <div class="footer">
   <ul class="footer-menu">
     <li class="footer-menu__link">J</li>
-    <li class="footer-menu__link">?</li>
+    <li id="helpButton" class="footer-menu__link">?</li>
   </ul>
 
 </div>
 
 
+<!-- help content -->
+
+<section id="helpScreen">
+<p>Hi this is content</p>
+
+</section>
+
+<script src="myScript.js" type="text/javascript"></script>
 </body>
 
 </html>

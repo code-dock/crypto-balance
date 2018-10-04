@@ -1,7 +1,26 @@
 /* eslint-disable */
 
+// Display helpScreen
+var helpButton = document.getElementById('helpButton');
+helpButton.addEventListener("click", function() {
+  let helpScreen = document.getElementById("helpScreen");
+  if (helpScreen.style.top === "0%") {
+    helpScreen.style.top = "100%";
+  } else {
+    helpScreen.style.top = "0%";
+  }
+});
 
-let logInContent = null;
+// Get currencySymbol to concatenate into currencyAmount
+let currencySymbolToggle = document.querySelector(".table__currency-toggle input:checked~.table__currency-toggle--symbol");
+let currencySymbol = currencySymbolToggle.innerHTML;
+document.addEventListener("change", function() {
+  currencySymbolToggle = document.querySelector(".table__currency-toggle input:checked~.table__currency-toggle--symbol");
+  currencySymbol = currencySymbolToggle.innerHTML;
+});
+
+
+let logInContent;
 
 function showLogInScreen() {
   logInContent = document.createElement("div");
@@ -239,25 +258,25 @@ let accessTokenValue = null;
 // document.addEventListener("DOMContentLoaded", showLogInScreen);
 
 // Check urls
-chrome.tabs.query({}, function(tabs) {
-  let i;
-  for (i = 0; i < tabs.length; i++) {
-
-    if (tabs[i].url.includes(REDIRECT_URI)) {
-      // Split url
-      let splitUrl = tabs[i].url.split("?");
-      let params = splitUrl[1];
-      // Split params
-      let splitParams = params.split("=");
-      let value = params.split("=")[1];
-      // Store authorization_code
-      localStorage.setItem(authorization_code, value);
-      temporaryCode = localStorage.getItem(authorization_code);
-
-      testerPoop();
-    }
-  }
-});
+// chrome.tabs.query({}, function(tabs) {
+//   let i;
+//   for (i = 0; i < tabs.length; i++) {
+//
+//     if (tabs[i].url.includes(REDIRECT_URI)) {
+//       // Split url
+//       let splitUrl = tabs[i].url.split("?");
+//       let params = splitUrl[1];
+//       // Split params
+//       let splitParams = params.split("=");
+//       let value = params.split("=")[1];
+//       // Store authorization_code
+//       localStorage.setItem(authorization_code, value);
+//       temporaryCode = localStorage.getItem(authorization_code);
+//
+//       testerPoop();
+//     }
+//   }
+// });
 
 
 function testerPoop() {
