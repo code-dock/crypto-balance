@@ -11,14 +11,55 @@ helpButton.addEventListener("click", function() {
   }
 });
 
-// Get currencySymbol to concatenate into currencyAmount
+
+
+// Get currencySymbol from radio buttons
 let currencySymbolToggle = document.querySelector(".table__currency-toggle input:checked~.table__currency-toggle--symbol");
 let currencySymbol = currencySymbolToggle.innerHTML;
+// accounts table currency amount
+let accountsCurrencyAmounts = document.getElementsByClassName("table-accounts__currency-amount");
+// rates table currency amount
+let a;
+for (a = 0; a < accountsCurrencyAmounts.length; a++) {
+  // Add symbol to amount
+  accountsCurrencyAmounts[a].innerHTML = currencySymbol.concat(accountsCurrencyAmounts[a].innerHTML);
+}
+let ratesCurrencyAmounts = document.getElementsByClassName("table-rates__amount");
+for (a = 0; a < ratesCurrencyAmounts.length; a++) {
+  ratesCurrencyAmounts[a].innerHTML = currencySymbol.concat(ratesCurrencyAmounts[a].innerHTML);
+}
+
 document.addEventListener("change", function() {
+  // Set currencySymbol from radio buttons
   currencySymbolToggle = document.querySelector(".table__currency-toggle input:checked~.table__currency-toggle--symbol");
   currencySymbol = currencySymbolToggle.innerHTML;
+
+  for (a = 0; a < accountsCurrencyAmounts.length; a++) {
+    // Remove any existing symbol from amount
+    accountsCurrencyAmounts[a].innerHTML = accountsCurrencyAmounts[a].innerHTML.slice(1);
+    // Add symbol to amounts
+    accountsCurrencyAmounts[a].innerHTML = currencySymbol.concat(accountsCurrencyAmounts[a].innerHTML);
+  }
+
+  for (a = 0; a < ratesCurrencyAmounts.length; a++) {
+    ratesCurrencyAmounts[a].innerHTML = ratesCurrencyAmounts[a].innerHTML.slice(1);
+    ratesCurrencyAmounts[a].innerHTML = currencySymbol.concat(ratesCurrencyAmounts[a].innerHTML);
+  }
 });
 
+// calculate cryptos
+
+// on watching input for changes
+document.addEventListener("input", function(e) {
+  let target = e.target;
+  if (target.classList.contains("table-rates__amount--input")) {
+    if (isNaN(parseInt(target.value))) {
+      console.log();
+
+    }
+    console.log(parseInt(target.value) * 10);
+  }
+}); // END watching input
 
 let logInContent;
 

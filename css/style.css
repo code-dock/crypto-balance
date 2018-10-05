@@ -98,17 +98,13 @@ body {
 }
 
 .table-accounts__icon {
-  width: 51px;
+  width: 48px;
 }
 
 .placeholder {
   vertical-align: middle;
-  display: inline;
-  width: 40px;
-}
-
-.table-accounts__crypto-amount {
-  width: 30px;
+  display: block;
+  width: 35px;
 }
 
 .table-accounts__equals {
@@ -118,6 +114,7 @@ body {
 
 .table-accounts__currency-amount {
   color: orangered;
+  max-width: 40px;
 }
 
 .table-accounts__currency-amount:nth-child(even) {
@@ -153,9 +150,21 @@ body {
   padding: 0 10px;
 }
 
-.table-rates__quantity {
+
+.table-rates__crypto-amount {
   text-align: center;
   width: 30px;
+}
+
+.table-rates__amount--input {
+  text-align: center;
+  width: 50px;
+  background-color: unset;
+  background-color: rgba(25, 25, 25, 0.2);
+  border: none;
+  line-height: 22px;
+  color: #eee;
+  font-size: 15px;
 }
 
 .table-rates__equals {
@@ -187,11 +196,9 @@ body {
   background-color: #364764;
 }
 
-
 /*======================================
 ///////////   Help Page   /////////////
 =======================================*/
-
 
 #helpScreen {
   transition: all 0.3s ease-in-out;
