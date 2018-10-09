@@ -27,10 +27,13 @@ document.addEventListener("input", function(evt) {
     let product = evt.path[2].lastElementChild.firstElementChild;
     // If value in output is not a number, display currency value of 1 coin
     if (isNaN(parseFloat(target.value) * 20)) {
-      console.log("We are in here");
-      product.innerHTML = "12305";
+      product.innerHTML = "1234";
+    } else {
+      // Convert value to string
+      let outputValue = parseFloat(target.value * 20).toString();
+      // return only the first 5 characters
+      product.innerHTML = outputValue.substring(0, 5);
     }
-    else {product.innerHTML = Number.parseFloat(target.value * 20).toPrecision(6);}
   }
 }); // END watching input
 
@@ -47,6 +50,10 @@ for (a = 0; a < accountsCurrencyAmounts.length; a++) {
   // Add symbol to amount
   accountsCurrencyAmounts[a].innerHTML = currencySymbol.concat(accountsCurrencyAmounts[a].innerHTML);
 }
+let ratesTableTitle = document.getElementsByClassName("table__title")[1];
+let tableTitleCurrencySymbol = ratesTableTitle.getElementsByTagName("span")[0];
+tableTitleCurrencySymbol.innerHTML = currencySymbol;
+
 let ratesCurrencyAmounts = document.getElementsByClassName("table-rates__amount");
 for (a = 0; a < ratesCurrencyAmounts.length; a++) {
   ratesCurrencyAmounts[a].innerHTML = currencySymbol.concat(ratesCurrencyAmounts[a].innerHTML);
@@ -63,6 +70,8 @@ document.addEventListener("change", function() {
     // Add symbol to amounts
     accountsCurrencyAmounts[a].innerHTML = currencySymbol.concat(accountsCurrencyAmounts[a].innerHTML);
   }
+
+  tableTitleCurrencySymbol.innerHTML = currencySymbol;
 
   for (a = 0; a < ratesCurrencyAmounts.length; a++) {
     ratesCurrencyAmounts[a].innerHTML = ratesCurrencyAmounts[a].innerHTML.slice(1);
