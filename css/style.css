@@ -2,7 +2,7 @@ body {
   margin: auto;
   padding: 0;
   width: 375px;
-  min-height: 540px;
+  height: 560px;
   background-color: #2a374d;
   font-size: 17px;
   overflow: hidden;
@@ -23,6 +23,14 @@ body {
 /*======================================
 ///////////   Rates Page   /////////////
 =======================================*/
+
+#ratesContent {
+  position: relative;
+  background-color: inherit;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
 
 .header__title {
   margin: 25px 35px;
@@ -47,7 +55,7 @@ body {
 .table__currency {
   display: inline-block;
   position: relative;
-  right: -70px;
+  right: -50px;
 }
 
 .table__currency-toggle {
@@ -107,18 +115,27 @@ body {
   width: 35px;
 }
 
+.table-accounts__crypto-amount {
+  width: 65px;
+}
+
 .table-accounts__equals {
   width: 10px;
   padding: 0 10px;
 }
 
 .table-accounts__currency-amount {
-  color: orangered;
   max-width: 40px;
 }
 
-.table-accounts__currency-amount:nth-child(even) {
+.table-accounts__currency-change:nth-child(even) {
   color: lawngreen;
+}
+
+.table-accounts__currency-change {
+  font-size: 16px;
+  color: orangered;
+  width: 20px;
 }
 
 /* rates */
@@ -150,10 +167,9 @@ body {
   padding: 0 10px;
 }
 
-
 .table-rates__crypto-amount {
   text-align: center;
-  width: 30px;
+  width: 60px;
 }
 
 .table-rates__amount--input {
@@ -200,13 +216,26 @@ body {
 ///////////   Help Page   /////////////
 =======================================*/
 
-#helpScreen {
+.about__modal {
   transition: all 0.3s ease-in-out;
+  background-color: inherit;
+  box-sizing: border-box;
   position: absolute;
-  top: 100%;
-  left: 0;
+  z-index: 999;
   height: 100%;
   width: 100%;
-  z-index: 999;
-  background-color: inherit;
+  left: 0;
+  top: 100%;
+  padding: 15px 35px;
+  font-size: 16px;
+}
+
+.about__modal>ul {
+  list-style: none;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.modal__toggle {
+  top: 0%;
 }

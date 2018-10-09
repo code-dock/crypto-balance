@@ -1,15 +1,38 @@
 /* eslint-disable */
 
-// Display helpScreen
-var helpButton = document.getElementById('helpButton');
-helpButton.addEventListener("click", function() {
-  let helpScreen = document.getElementById("helpScreen");
-  if (helpScreen.style.top === "0%") {
-    helpScreen.style.top = "100%";
-  } else {
-    helpScreen.style.top = "0%";
+// Display about modal
+let aboutModal = document.getElementsByClassName("about__modal")[0];
+document.addEventListener("click", function(e) {
+  // if about modal button pressed
+  if (e.target.id === "aboutButton") {
+    // toggle about modal screen
+    aboutModal.classList.toggle("modal__toggle");
   }
 });
+
+
+// calculate product of input and rate
+let ratesCurrencyOutputs = document.getElementsByClassName("table-rates__crypto-amount--output");
+let i;
+for (i = 0; i < ratesCurrencyOutputs.length; i++) {
+  ratesCurrencyOutputs[i].innerHTML = "12305";
+}
+
+// on watching input for changes
+document.addEventListener("input", function(evt) {
+  // target input
+  let target = evt.target;
+  if (target.classList.contains("table-rates__amount--input")) {
+    // product of input and rate. path[2] -selects the row, first el in last td
+    let product = evt.path[2].lastElementChild.firstElementChild;
+    // If value in output is not a number, display currency value of 1 coin
+    if (isNaN(parseFloat(target.value) * 20)) {
+      console.log("We are in here");
+      product.innerHTML = "12305";
+    }
+    else {product.innerHTML = Number.parseFloat(target.value * 20).toPrecision(6);}
+  }
+}); // END watching input
 
 
 
@@ -46,20 +69,6 @@ document.addEventListener("change", function() {
     ratesCurrencyAmounts[a].innerHTML = currencySymbol.concat(ratesCurrencyAmounts[a].innerHTML);
   }
 });
-
-// calculate cryptos
-
-// on watching input for changes
-document.addEventListener("input", function(e) {
-  let target = e.target;
-  if (target.classList.contains("table-rates__amount--input")) {
-    if (isNaN(parseInt(target.value))) {
-      console.log();
-
-    }
-    console.log(parseInt(target.value) * 10);
-  }
-}); // END watching input
 
 let logInContent;
 
