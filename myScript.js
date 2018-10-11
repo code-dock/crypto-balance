@@ -1,5 +1,29 @@
 /* eslint-disable */
 
+const CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29";
+const CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8";
+const REDIRECT_URI = "http://murphyme.co.uk/success.html";
+const ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
+const REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY";
+const AUTHORIZATION_CODE = "authorization_code";
+
+let temporaryCode = null;
+let refreshTokenValue = null;
+let accessTokenValue = null;
+// Content Sections
+let signinContent = document.getElementById("signinContent");
+let extensionContent = document.getElementById("extensionContent");
+
+
+// Append button to signin screen
+let signinButton = document.getElementById("signinButton");
+signinButton.setAttribute(
+  "href",
+  "https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID +
+  "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
+  "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all"
+);
+
 // Display about modal
 let aboutModal = document.getElementsByClassName("about__modal")[0];
 document.addEventListener("click", function(e) {
@@ -10,34 +34,12 @@ document.addEventListener("click", function(e) {
   }
 });
 
-
-// calculate product of input and rate
-let ratesCurrencyOutputs = document.getElementsByClassName("table-rates__crypto-amount--output");
-let i;
-for (i = 0; i < ratesCurrencyOutputs.length; i++) {
-  ratesCurrencyOutputs[i].innerHTML = "12305";
-}
-
-// on watching input for changes
-document.addEventListener("input", function(evt) {
-  // target input
-  let target = evt.target;
-  if (target.classList.contains("table-rates__amount--input")) {
-    // product of input and rate. path[2] -selects the row, first el in last td
-    let product = evt.path[2].lastElementChild.firstElementChild;
-    // If value in output is not a number, display currency value of 1 coin
-    if (isNaN(parseFloat(target.value) * 20)) {
-      product.innerHTML = "1234";
-    } else {
-      // Convert value to string
-      let outputValue = parseFloat(target.value * 20).toString();
-      // return only the first 5 characters
-      product.innerHTML = outputValue.substring(0, 5);
-    }
-  }
-}); // END watching input
-
-
+//Show Login Screen
+document.addEventListener("DOMContentLoaded", function(e) {
+  e.preventDefault();
+  signinContent.style.display = "inline-block";
+  extensionContent.style.display = "none";
+});
 
 // Get currencySymbol from radio buttons
 let currencySymbolToggle = document.querySelector(".table__currency-toggle input:checked~.table__currency-toggle--symbol");
@@ -79,92 +81,33 @@ document.addEventListener("change", function() {
   }
 });
 
-let logInContent;
-
-function showLogInScreen() {
-  logInContent = document.createElement("div");
-  logInContent.classList.add("login-content");
-  document.body.appendChild(logInContent);
-
-  let content = document.createElement("div");
-  content.classList.add("content-container");
-  logInContent.appendChild(content);
-
-  let icon = document.createElement("img");
-  icon.classList.add("login-icon");
-  icon.setAttribute("src", "/images/icon.png");
-  content.appendChild(icon);
-
-  let button = document.createElement("a");
-  button.classList.add("login-button");
-  button.setAttribute(
-    "href",
-    "https://www.coinbase.com/oauth/authorize?client_id=" + CLIENT_ID +
-    "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
-    "&response_type=code&scope=wallet%3Aaccounts%3Aread&account=all"
-  );
-  button.setAttribute("target", "_blank");
-
-  button.innerHTML = "Sign in with Coinbase";
-  content.appendChild(button);
-
-  const madeBy = document.createElement("div");
-  madeBy.classList.add("madeby");
-  madeBy.innerHTML =
-    '<p>Made by <a href="http://murphyme.co.uk/" target="_blank">Jack Murphy</a></p>';
-  logInContent.appendChild(madeBy);
+// calculate product of input and rate
+let ratesCurrencyOutputs = document.getElementsByClassName("table-rates__crypto-amount--output");
+let i;
+for (i = 0; i < ratesCurrencyOutputs.length; i++) {
+  ratesCurrencyOutputs[i].innerHTML = "12305";
 }
 
-// START rates page
-const accountsTable = document.createElement('table');
-const ratesTable = document.createElement("table");
+// on watching input for changes
+document.addEventListener("input", function(evt) {
+  // target input
+  let target = evt.target;
+  if (target.classList.contains("table-rates__amount--input")) {
+    // product of input and rate. path[2] -selects the row, first el in last td
+    let product = evt.path[2].lastElementChild.firstElementChild;
+    // If value in output is not a number, display currency value of 1 coin
+    if (Number.isNaN(parseFloat(target.value) * 20)) {
+      product.innerHTML = "1234";
+    } else {
+      // Convert value to string
+      let outputValue = parseFloat(target.value * 20).toString();
+      // return only the first 5 characters
+      product.innerHTML = outputValue.substring(0, 5);
+    }
+  }
+}); // END watching input
 
-function createHeader() {
-  const header = document.createElement("header");
-  header.classList.add("header");
-  document.body.appendChild(header);
 
-  const title = document.createElement("h1");
-  title.classList.add("title");
-  title.innerHTML = "Title";
-  header.appendChild(title);
-
-  const image = document.createElement("img");
-  image.classList.add("img");
-  image.classList.add("login-icon");
-  image.setAttribute("src", "images/icon.png");
-  header.appendChild(image);
-}
-
-// Create rows for specific currencies, called inside getCurrencyAbreviation
-function createRatesRow(abr, val) {
-  let tableRow = document.createElement('tr');
-
-  const cryptoName = document.createElement('td');
-  cryptoName.innerHTML = abr;
-  tableRow.appendChild(cryptoName);
-  ratesTable.appendChild(tableRow);
-
-  const cryptoValue = document.createElement('td');
-  cryptoValue.innerHTML = val;
-  tableRow.appendChild(cryptoValue);
-  ratesTable.appendChild(tableRow);
-
-  let equalTo = document.createElement('td');
-  equalTo.innerHTML = " = ";
-  tableRow.appendChild(equalTo);
-  ratesTable.appendChild(tableRow);
-
-  const moneyValue = document.createElement('td');
-  moneyValue.innerHTML = `<span>${getSymbol(abr)}</span> ${val}`;
-  tableRow.appendChild(moneyValue);
-  ratesTable.appendChild(tableRow);
-
-  const priceChangeCell = document.createElement('td');
-  priceChangeCell.innerHTML = "hi";
-  tableRow.appendChild(priceChangeCell);
-  ratesTable.appendChild(tableRow);
-}
 
 function addRatesToBody() {
   fetch('https://api.coinbase.com/v2/exchange-rates?currency=GBP')
@@ -208,134 +151,46 @@ function createAccountsRow(data) {
   accountsRow.appendChild(cryptoValue);
 }
 
-function getSymbol(abr) {
+function getIcon(abr) {
   switch (abr) {
-    case "GBP":
-      return "£";
+    case "BCH":
+      return "bch60.png";
+    case "LTC":
+      return "ltc60.png";
       break;
-    case "USD":
-      return "$";
+    case "ETH":
+      return "eth60.png";
       break;
-    case "EUR":
-      return "€";
+    case "BTC":
+      return "btc60.png";
       break;
     default:
-      return abr;
+      return "placeholder.png";
       break;
   }
 }
 
-// function getIcon(abr) {
-//   switch (abr) {
-//     case "BCH":
-//       return "bch.png";
-//     case "LTC":
-//       return "ltc.png";
-//       break;
-//     case "ETH":
-//       return "eth.jpg";
-//       break;
-//     case "BTC":
-//       return "btc.png";
-//       break;
-//     case "EUR":
-//       return "eur.png";
-//       break;
-//     case "USD":
-//       return "usd.png";
-//       break;
-//     default:
-//       return "placeholder.png";
-//       break;
-//   }
-// }
 
-function getCurrencyAbreviation(abr, val) {
-  switch (abr) {
-    case "BTC":
-      createRatesRow(abr, val);
-      break;
+//Check urls
+chrome.tabs.query({}, function(tabs) {
+  let i;
+  for (i = 0; i < tabs.length; i++) {
 
-    case "ETH":
-      createRatesRow(abr, val);
-      break;
+    if (tabs[i].url.includes(REDIRECT_URI)) {
+      // Split url
+      let splitUrl = tabs[i].url.split("?");
+      let params = splitUrl[1];
+      // Split params
+      let splitParams = params.split("=");
+      let value = params.split("=")[1];
+      // Store authorization_code
+      localStorage.setItem(AUTHORIZATION_CODE, value);
+      temporaryCode = localStorage.getItem(AUTHORIZATION_CODE);
 
-    case "USD":
-      createRatesRow(abr, val);
-      break;
-
-    case "BCH":
-      createRatesRow(abr, val);
-      break;
-
-    case "LTC":
-      createRatesRow(abr, val);
-      break;
+      testerPoop();
+    }
   }
-}
-
-function getCurrencyValue(abr, val) {
-  switch (abr) {
-    case "BTC":
-      return val;
-      break;
-
-    case "ETH":
-      return val;
-      break;
-
-    case "USD":
-      return val;
-      break;
-
-    case "BCH":
-      return val;
-      break;
-
-    case "LTC":
-      return val;
-      break;
-    default:
-      return " ";
-  }
-}
-
-
-let CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29";
-let CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8";
-let REDIRECT_URI = "http://murphyme.co.uk/success.html";
-let ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
-let REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY";
-let authorization_code = "authorization_code";
-let access_token = "access_token";
-let refresh_token = "refresh_token";
-let temporaryCode = null;
-let refreshTokenValue = null;
-let accessTokenValue = null;
-
-// Show Login Screen
-// document.addEventListener("DOMContentLoaded", showLogInScreen);
-
-// Check urls
-// chrome.tabs.query({}, function(tabs) {
-//   let i;
-//   for (i = 0; i < tabs.length; i++) {
-//
-//     if (tabs[i].url.includes(REDIRECT_URI)) {
-//       // Split url
-//       let splitUrl = tabs[i].url.split("?");
-//       let params = splitUrl[1];
-//       // Split params
-//       let splitParams = params.split("=");
-//       let value = params.split("=")[1];
-//       // Store authorization_code
-//       localStorage.setItem(authorization_code, value);
-//       temporaryCode = localStorage.getItem(authorization_code);
-//
-//       testerPoop();
-//     }
-//   }
-// });
+});
 
 
 function testerPoop() {
@@ -361,9 +216,9 @@ function testerPoop() {
         refreshTokenValue = localStorage.getItem(REFRESH_TOKEN_KEY);
         accessTokenValue = localStorage.getItem(ACCESS_TOKEN_KEY);
         console.log("Your tokens are stored");
-        logInContent.style.display = "none";
+        signinContent.style.display = "none";
       } else {
-        logInContent.style.display = "block";
+        signinContent.style.display = "block";
         console.log("You probably need to login again");
       } // END else
 

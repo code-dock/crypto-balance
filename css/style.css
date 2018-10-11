@@ -13,18 +13,38 @@ body {
 /////////   log in screen   /////////////
 =======================================*/
 
-.login-icon {
+#signinContent {
+height: 90%;
+  position: relative;
+  background-color: inherit;
+  overflow: hidden;
+  text-align: center;
+}
+
+.signin__icon {
   display: block;
   margin: auto;
   margin-bottom: 50px;
   width: 60%;
 }
 
+.signin__button {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: sans-serif;
+  display: inline-block;
+  text-decoration: none;
+  border: 2px solid;
+  border-radius: 4px;
+  padding: 8px 40px;
+}
+
 /*======================================
 ///////////   Rates Page   /////////////
 =======================================*/
 
-#ratesContent {
+#extensionContent {
   position: relative;
   background-color: inherit;
   overflow: hidden;
@@ -191,7 +211,7 @@ body {
 
 .footer {
   position: absolute;
-  right: 40px;
+  right: 25px;
   bottom: 5px;
   z-index: 1001;
 }
