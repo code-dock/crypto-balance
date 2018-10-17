@@ -1,21 +1,22 @@
 /* eslint-disable */
 
+// Info for using app
 const CLIENT_ID = "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29";
 const CLIENT_SECRET = "55404ab2ea23a6737b68100211c774e86087ee6fc79ab285533a62731be77eb8";
 const REDIRECT_URI = "http://murphyme.co.uk/success.html";
 const ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
 const REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY";
-const AUTHORIZATION_CODE = "authorization_code";
+const authorization_code = "authorization_code";
 
 let temporaryCode = null;
 let refreshTokenValue = null;
 let accessTokenValue = null;
+
 // Content Sections
 let signinContent = document.getElementById("signinContent");
 let extensionContent = document.getElementById("extensionContent");
 
-
-// Append button to signin screen
+// Add href to button
 let signinButton = document.getElementById("signinButton");
 signinButton.setAttribute(
   "href",
@@ -54,6 +55,7 @@ for (a = 0; a < accountsCurrencyAmounts.length; a++) {
 }
 let ratesTableTitle = document.getElementsByClassName("table__title")[1];
 let tableTitleCurrencySymbol = ratesTableTitle.getElementsByTagName("span")[0];
+currencySymbol = currencySymbolToggle.innerHTML;
 tableTitleCurrencySymbol.innerHTML = currencySymbol;
 
 let ratesCurrencyAmounts = document.getElementsByClassName("table-rates__amount");
@@ -65,6 +67,9 @@ document.addEventListener("change", function() {
   // Set currencySymbol from radio buttons
   currencySymbolToggle = document.querySelector(".table__currency-toggle input:checked~.table__currency-toggle--symbol");
   currencySymbol = currencySymbolToggle.innerHTML;
+
+  // Make a new call to endpoint using relevant currency in params
+  addRatesToBody();
 
   for (a = 0; a < accountsCurrencyAmounts.length; a++) {
     // Remove any existing symbol from amount
@@ -81,76 +86,44 @@ document.addEventListener("change", function() {
   }
 });
 
-// calculate product of input and rate
-let ratesCurrencyOutputs = document.getElementsByClassName("table-rates__crypto-amount--output");
-let i;
-for (i = 0; i < ratesCurrencyOutputs.length; i++) {
-  ratesCurrencyOutputs[i].innerHTML = "12305";
-}
 
-// on watching input for changes
-document.addEventListener("input", function(evt) {
-  // target input
-  let target = evt.target;
-  if (target.classList.contains("table-rates__amount--input")) {
-    // product of input and rate. path[2] -selects the row, first el in last td
-    let product = evt.path[2].lastElementChild.firstElementChild;
-    // If value in output is not a number, display currency value of 1 coin
-    if (Number.isNaN(parseFloat(target.value) * 20)) {
-      product.innerHTML = "1234";
-    } else {
-      // Convert value to string
-      let outputValue = parseFloat(target.value * 20).toString();
-      // return only the first 5 characters
-      product.innerHTML = outputValue.substring(0, 5);
-    }
-  }
-}); // END watching input
+// function addAccountsToBody() {
+//   fetch('https://api.coinbase.com/v2/accounts', {
+//       headers: {
+//         "Authorization": "Bearer " + accessTokenValue,
+//       },
+//     })
+//     .then(response => response.json())
+//     .then(function(response) {
+//       let currencyAmounts = document.getElementsByClassName("table-accounts__currency-amount");
+//       let currencyChanges = document.getElementsByClassName("table-accounts__currency-change");
+//       // response.data returns array of numbers, each is an account
+//       let accounts = response.data;
+//
+//       // console.log(accounts);
+//
+//       // loop through accounts
+//       accounts.forEach((account, index) => {
+//         // Select relevant image
+//         let icons = document.getElementsByClassName("placeholder");
+//         icons[index].setAttribute("src", `images/${getIcon(account.balance.currency)}`);
+//         // Set currency amount in cell
+//         let cryptoAmounts = document.getElementsByClassName("table-accounts__crypto-amount");
+//         cryptoAmounts[index].innerHTML = account.balance.amount;
+//       });
+//
+//       // // account icon
+//       // icons[key].innerHTML = `images/${getIcon(value.balance.currency)}`;
+//       // // crypto amount
+//       // cryptoAmounts[key].innerHTML = value.balance.amount;
+//       // // value of crypto
+//       // currencyAmounts[key].innerHTML = value.balance.currency;
+//       // // value change
+//       // currencyChanges[key].innerHTML = value.
+//     });
+// }
 
-
-
-function addRatesToBody() {
-  fetch('https://api.coinbase.com/v2/exchange-rates?currency=GBP')
-    .then(response => response.json())
-    .then(function(response) {
-      createHeader();
-      let rates = response.data.rates;
-      for (let key in rates) {
-        let value = rates[key];
-        // Look for specific currencies
-        getCurrencyAbreviation(key, value);
-      }
-      document.body.appendChild(ratesTable);
-    });
-}
-
-
-function createAccountsRow(data) {
-  const accountsRow = document.createElement('tr');
-
-  const crypto = document.createElement('td');
-  const image = document.createElement('img');
-  image.classList.add('accounts__placeholder');
-  image.setAttribute('src', `/images/icon.png`)
-
-  crypto.appendChild(image);
-  accountsRow.appendChild(crypto);
-
-  let accountName = document.createElement('td');
-  accountName.innerHTML = "your " + data.balance.currency;
-  accountsTable.appendChild(accountName);
-
-  let equalTo = document.createElement('td');
-  equalTo.innerHTML = " is currently worth ";
-  accountsRow.appendChild(equalTo);
-  ratesTable.appendChild(accountsRow);
-
-  let cryptoValue = document.createElement('td');
-  cryptoValue.innerHTML = data.balance.amount;
-
-  accountsRow.appendChild(cryptoValue);
-}
-
+// get icon relevant to asset
 function getIcon(abr) {
   switch (abr) {
     case "BCH":
@@ -169,7 +142,103 @@ function getIcon(abr) {
       break;
   }
 }
+// get abreviated name of asset
+function getAbrName(abr) {
+  switch (abr) {
+    case "BCH":
+      return abr;
+    case "LTC":
+      return abr;
+      break;
+    case "ETH":
+      return abr;
+      break;
+    case "BTC":
+      return abr;
+      break;
+    default:
+      return "Jack";
+      break;
+  }
+}
 
+
+function addRatesToBody() {
+  fetch(`https://api.coinbase.com/v2/exchange-rates?currency=${getSymbol(currencySymbol)}`)
+    .then(response => response.json())
+    .then(response => {
+      let ratesOutputs = document.getElementsByClassName("table-rates__crypto-amount--output");
+      let ratesCryptoAbrNames = document.getElementsByClassName("table-rates__crypto-code");
+
+      // Show rates of selected currency
+      let rates = response.data.rates;
+      // Keys from rates
+      const keys = Object.keys(rates);
+      // Values from rates
+      const vals = Object.values(rates);
+      // Array of cryptos displayed in rates table
+      const assets = ["BCH", "BTC", "ETC", "ETH", "LTC"];
+      // New array
+      let list = [];
+
+      // compare items in both arrays and build a new array
+      keys.forEach((key) => assets.forEach((asset, index) => {
+        if (key === asset) {
+          let crypto = {
+            name: key,
+            amount: vals[index],
+          }
+          list.push(crypto);
+
+          ratesCryptoAbrNames[index].innerHTML = crypto.name;
+          ratesOutputs[index].innerHTML = crypto.amount;
+
+          // on watching input for changes
+          document.addEventListener("input", function(evt) {
+            // target input
+            let target = evt.target;
+            if (target.classList.contains("table-rates__amount--input")) {
+              if (target.innerHTML === "" || target.innerHTML === " " || target.innerHTML === "0") {
+                target.innerHTML = "1";
+              }
+              // product of input and rate. path[2] -selects the row, first el in last td
+              let product = evt.path[2].lastElementChild.firstElementChild;
+              // If value in output is not a number, display currency value of 1 coin
+              if (Number.isNaN(parseFloat(target.value))) {
+                product.innerHTML = crypto.amount;
+              } else {
+                // Convert value to string
+                let outputValue = parseFloat(target.value * crypto.amount).toString();
+                // return only the first 5 characters
+                product.innerHTML = outputValue.substring(0, 5);
+              }
+            }
+          }); // END watching input
+
+        } // END compare arrays IF
+      })); // END compare arrays forEach
+
+    }); // END then clause
+} // END addRatesToBody function
+
+// get selected symbol from radio buttons and return code
+function getSymbol(sym) {
+  switch (sym) {
+    case "$":
+      return "USD";
+      break;
+    case "£":
+      return "GBP";
+      break;
+    case "€":
+      return "EUR";
+      break;
+    default:
+      return "USD";
+      break;
+  }
+
+}
 
 //Check urls
 chrome.tabs.query({}, function(tabs) {
@@ -184,8 +253,8 @@ chrome.tabs.query({}, function(tabs) {
       let splitParams = params.split("=");
       let value = params.split("=")[1];
       // Store authorization_code
-      localStorage.setItem(AUTHORIZATION_CODE, value);
-      temporaryCode = localStorage.getItem(AUTHORIZATION_CODE);
+      localStorage.setItem(authorization_code, value);
+      temporaryCode = localStorage.getItem(authorization_code);
 
       testerPoop();
     }
@@ -217,33 +286,18 @@ function testerPoop() {
         accessTokenValue = localStorage.getItem(ACCESS_TOKEN_KEY);
         console.log("Your tokens are stored");
         signinContent.style.display = "none";
+        extensionContent.style.display = "block";
       } else {
-        signinContent.style.display = "block";
-        console.log("You probably need to login again");
+        // signinContent.style.display = "block";
+        // extensionContent.style.display = "none";
+        // console.log("You probably need to login again");
+        signinContent.style.display = "none";
+        extensionContent.style.display = "block";
       } // END else
 
     })
     .then(function() {
       addRatesToBody();
-      addAccountsToBody();
+      // addAccountsToBody();
     });
 } // END testerPoop
-
-function addAccountsToBody() {
-  fetch('https://api.coinbase.com/v2/accounts', {
-      headers: {
-        "Authorization": "Bearer " + accessTokenValue,
-      },
-    })
-    .then(response => response.json())
-    .then(function(response) {
-      let accounts = response.data;
-      console.log(accounts);
-      for (key in accounts) {
-        let info = accounts[key];
-        createAccountsRow(info);
-        console.log(info.balance.currency);
-        console.log(info.balance.amount);
-      }
-    });
-}
