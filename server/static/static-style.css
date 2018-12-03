@@ -1,7 +1,8 @@
-
 body {
-  background-color: #1b4b82;
+  /* background-color: rgb(22, 82, 240); */
+  background-image: linear-gradient(to bottom right, #005482, #1652f0);
   margin: auto;
+  height: 100vh;
   padding: 0;
   font-family: sans-serif;
   font-size: 18px;
@@ -9,14 +10,15 @@ body {
 }
 
 p {
-  font-size: 1.4rem;
-  line-height: 1.2;
+  font-size: 21px;
+  line-height: 1.6;
 }
+
 .oauth-container {
   background-color: inherit;
   margin: auto;
   padding: 140px 0;
-  max-width: 480px;
+  max-width: 560px;
 }
 
 .content-box {

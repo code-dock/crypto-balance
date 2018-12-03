@@ -14,64 +14,22 @@
 
   <div class="oauth-container">
     <div class="content-box">
-      <h2>Success</h2>
+      <h2>Congratulations!</h2>
       <p><strong>crypto-balance</strong> has been successfully authorised to access your Coinbase account.</p>
     </div>
 
     <script type="text/javascript">
-      //onload check for param code = ...
-      window.addEventListener('DOMContentLoaded', checkParams);
+      window.addEventListener("DOMContentLoaded", () => {
+        // let search = location.search.substring(1);
+        // let authorization_code = "authorization_code";
+        // let authCode = search.replace("code=", "");
+        // localStorage.setItem(authorization_code, authCode);
 
-      function checkParams(e) {
-        //Check if params = true && params contains 'code='
-        e.preventDefault();
-
-        // if (window.location.search.includes("code")) {
-        //   var key = "code",
-        //       value = "x";
-        //       localStorage.setItem(key, value);
-        //       console.log(localStorage);
-        //       console.log(window.location.href);
-        //     }
-
-//
-// var url = window.location.href;
-//
-// var queryparams = url.split('?')[1];
-//
-// var params = queryparams.split('&');
-//
-// var pair = null,
-//     data = [];
-//
-// params.forEach(function(d) {
-//     pair = d.split('=');
-//     data.push({key: pair[0], value: pair[1]});
-//     console.log(pair);
-//
-// });
-//
-//
-// "optional_permissions": [
-//   "tabs",
-//   "activeTab",
-//   "storage",
-//   "identity",
-//   "https://api.coinbase.com/v2/accounts/*",
-//   "https://www.coinbase.com/oauth/*",
-//   "http://murphyme.co.uk/success.html/*"
-// ]
-// },
-
-
-        // else show popup
-        console.log("Huston, we have a problem");
-        return;
-        //Store name:value pair in localstorage
-      }
-      // store code param in safe place to be accessed be extension
-
-      // exchange code for auth token
+        // Close page after 10 seconds
+        setTimeout(() => {
+          window.close();
+        }, 10000);
+      });
     </script>
 
 </body>

@@ -3,7 +3,7 @@ body {
   padding: 0;
   width: 375px;
   height: 560px;
-  background-color: #2a374d;
+  background-color: rgb(22, 82, 240);
   font-size: 17px;
   overflow: hidden;
   color: #fff;
@@ -14,7 +14,9 @@ body {
 =======================================*/
 
 #signinContent {
-  height: 90%;
+  display: none;
+  visibility: hidden;
+  height: 100%;
   background-color: #f3f3f3;
   position: relative;
   background-color: inherit;
@@ -23,28 +25,67 @@ body {
 }
 
 .signin__icon {
+  width: 100px;
+  margin: 40px auto 75px;
   display: block;
-  margin: auto;
-  margin-top: 37%;
-  margin-bottom: 50px;
-  width: 60%;
 }
 
 .signin__button {
   color: #fff;
   font-size: 14px;
   font-weight: 600;
+  letter-spacing: 1px;
   font-family: sans-serif;
   display: inline-block;
+  box-sizing: border-box;
   text-decoration: none;
-  background-color: #0082ad;
   transition: all .2s ease-in-out;
+  padding: 0 20px;
+  line-height: 60px;
+  border: 2px solid;
   border-radius: 4px;
-  padding: 8px 40px;
+}
+
+.signin__newaccount {
+  display: block;
+  text-decoration: none;
+  line-height: 2;
+  padding-top: 20px;
+  color: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all .1s ease-in-out;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+
+.signin__newaccount:hover {
+  /* color: #62c18a; */
+  color: #35ff8a;
+}
+
+.signin__jack {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all .1s ease-in-out;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+  position: relative;
+  top: 205px;
+  z-index: 1003;
+}
+
+.signin__jack:hover {
+  opacity: .7;
 }
 
 .signin__button:hover {
-  background-color: #006b8e;
+  color: rgb(22, 82, 240);
+  background-color: #fff;
+  border: 2px solid;
 }
 
 /*======================================
@@ -52,154 +93,139 @@ body {
 =======================================*/
 
 #extensionContent {
+  display: none;
   position: relative;
-  background-color: inherit;
+  background-color: #fff;
   overflow: hidden;
   height: 100%;
   width: 100%;
 }
 
-.header__title {
-  margin: 25px 35px;
-  letter-spacing: 1px;
-}
+/* Content */
 
-.header__icon {
-  width: 40px;
-  position: absolute;
-  top: 25px;
-  right: 25px;
-}
+/* table */
 
-.table__title {
-  font-size: 20px;
-  letter-spacing: 1px;
-  display: inline;
+.content__title {
+  letter-spacing: 2px;
+  font-size: 16px;
   margin: 0;
-  padding: 0 25px;
-}
-
-.table__currency {
   display: inline-block;
-  position: relative;
-  right: -82px;
-}
-
-.table__currency-toggle {
-  text-decoration: none;
-  display: inline-block;
-  color: #fff;
-  padding: 0 1px;
-  margin: 0;
-  font-size: 1.2em;
-}
-
-.table__currency-toggle input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.table__currency-toggle--symbol {
-  transition: all .1s ease-in-out;
-}
-
-.table__currency-toggle:hover input~.table__currency-toggle--symbol {
-  opacity: 0.8;
-  color: #0082ad;
-}
-
-.table__currency-toggle input:checked~.table__currency-toggle--symbol {
-  color: deepskyblue;
+  background-color: rgb(22, 82, 240);
+  width: 100%;
+  padding: 25px 0 10px;
 }
 
 /* accounts */
 
-.content-accounts {
-  text-align: left;
-  margin: 25px 10px;
-  padding: 5px;
+.content {
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-.table-accounts {
+.table {
   border-collapse: collapse;
-  margin: 2px auto 0px;
-  width: 85%;
+  margin: 5px 0;
+  width: 100%;
+  padding: 0 5px;
 }
 
-.table-accounts__row {
+.accounts {
+  margin: 10px 0 25px;
+  color: #000;
+}
+
+.table__row {
   border: none;
-  line-height: 2.8;
+  line-height: 3.2;
 }
 
-.table-accounts__icon {
+.table__cell {
   width: 48px;
 }
 
-.placeholder {
+.table__cell--imagehldr {
+  width: 58px;
+  height: 75px;
+}
+
+.cell--image {
   vertical-align: middle;
-  display: block;
+  display: inline-block;
   width: 35px;
 }
 
-.table-accounts__crypto-amount {
-  width: 65px;
-}
-
-.table-accounts__equals {
-  width: 10px;
-  padding: 0 10px;
-}
-
-.table-accounts__currency-amount {
-  max-width: 40px;
-}
-
-.table-accounts__currency-change:nth-child(even) {
-  color: lawngreen;
-}
-
-.table-accounts__currency-change {
-  font-size: 16px;
-  color: orangered;
-  width: 20px;
-}
-
-/* rates */
-
-.content-rates {
+.table__cell--name {
+  letter-spacing: 1px;
   text-align: left;
-  margin: 15px 10px;
-  padding: 5px;
+  padding: 20px 0;
 }
 
-.table-rates {
-  border-collapse: collapse;
-  margin: 5px auto;
-  color: #fff;
-  width: 86%;
+.table__cell--name:nth-child(0) {
+  padding-top: 25px;
 }
 
-.table-rates__row {
+.table__cell--amount {
+  width: 160px;
+  text-align: right;
+  padding-right: 15px;
+}
+
+.table__cell--value {
+  color: #777;
+  line-height: 1.8;
+  display: inline-block;
+  position: relative;
+}
+
+.table__cell--value::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: -20px;
+  width: 370px;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.accounts__toggle {
+  display: block;
+  visibility: visible;
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+/* prices */
+
+.prices__title {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 0;
+  background-color: unset;
+  color: #555;
+}
+
+.prices-table__row {
   background-color: #364764;
   border: none;
   line-height: 2;
 }
 
-.table-rates__row:nth-child(even) {
+.prices-table__row:nth-child(even) {
   background-color: #2a374d;
 }
 
-.table-rates__row td {
-  padding: 0 10px;
+.table__cell--calc {
+  width: 58px;
 }
 
-.table-rates__crypto-amount {
-  text-align: center;
-  width: 60px;
-}
-
-.table-rates__amount--input {
+.cell--input {
   text-align: center;
   width: 50px;
   background-color: unset;
@@ -210,40 +236,35 @@ body {
   font-size: 15px;
 }
 
-.table-rates__equals {
-  padding: 0 15px !important;
+.table__cell--assetname {
+  text-align: left;
 }
 
 /* Footer */
 
 .footer {
+  text-align: right;
   position: absolute;
-  right: 25px;
-  bottom: 5px;
+  padding: 5px 0;
+  bottom: 0px;
+  left: 0;
   z-index: 1001;
+  background-color: #eee;
+  width: 100%;
 }
 
-.footer-menu {
-  list-style: none;
-  margin: 0;
+.footer__link {
+  transition: .1s all ease-in-out;
+  text-decoration: none;
+  position: relative;
+  z-index: 1002;
 }
 
-.footer-menu__link {
-  display: inline-block;
-  line-height: 2;
-  padding: 0 15px;
-  cursor: pointer;
+.footer__link:hover {
+  opacity: .7;
 }
 
-.footer-menu__link:hover {
-  background-color: #364764;
-}
-
-/*======================================
-///////////   Help Page   /////////////
-=======================================*/
-
-.about__modal {
+.footer__modal {
   transition: all 0.5s ease-in-out;
   background-color: inherit;
   box-sizing: border-box;
@@ -257,12 +278,52 @@ body {
   font-size: 16px;
 }
 
-.about__modal>ul {
-  list-style: none;
-  padding: 0;
-  line-height: 1.4;
+.show {
+  top: 0%;
 }
 
-.modal__toggle {
-  top: 0%;
+.footer--blue {
+  background-color: rgb(22, 82, 240);
+}
+.footer--blue .footer__link {
+  color: #fff !important;
+}
+.currency {
+  display: inline-block;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1002;
+}
+
+.currency__toggle {
+  text-decoration: none;
+  display: inline-block;
+  color: #777;
+  padding: 0 1px;
+  margin: 0;
+  font-size: .9em;
+}
+
+.currency__break {
+  color: #444;
+}
+
+.currency__toggle input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.currency__toggle--symbol {
+  transition: all .1s ease-in-out;
+}
+
+.currency__toggle input:hover~.currency__toggle--symbol {
+  color: #444;
+}
+
+.currency__toggle input:checked~.currency__toggle--symbol {
+  color: #444;
 }
