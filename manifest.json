@@ -14,7 +14,7 @@
     "http://murphyme.co.uk/success.html/*"
   ],
   "browser_action": {
-    "default_icon": "images/icon.png",
+    "default_icon": "images/chocolatecoin.png",
     "default_popup": "wallets.html",
     "default_title": "Crypto Currencies"
   },

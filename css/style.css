@@ -94,6 +94,7 @@ body {
 
 #extensionContent {
   display: none;
+  visibility: hidden;
   position: relative;
   background-color: #fff;
   overflow: hidden;
@@ -257,6 +258,7 @@ body {
   transition: .1s all ease-in-out;
   text-decoration: none;
   position: relative;
+  right: 20px;
   z-index: 1002;
 }
 
@@ -278,16 +280,22 @@ body {
   font-size: 16px;
 }
 
-.show {
+.top {
   top: 0%;
+}
+.visible  {
+  display: block !important;
+  visibility: visible !important;
 }
 
 .footer--blue {
   background-color: rgb(22, 82, 240);
 }
+
 .footer--blue .footer__link {
   color: #fff !important;
 }
+
 .currency {
   display: inline-block;
   position: absolute;
