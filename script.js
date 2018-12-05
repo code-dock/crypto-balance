@@ -20,7 +20,7 @@ let cc = {
   t: "",
 
   init: () => {
-  
+
     cc.toggleContent();
     cc.toggleAbout();
     cc.toggleCurrency();
@@ -293,81 +293,81 @@ let cc = {
     cc.calcPricesProduct();
   },
   //
-  // buildAccountsTable: (account) => {
-  //   // append to accounts table, display 3 accounts and more on btn toggle
-  //   let accountsTable = document.getElementsByClassName("accounts")[0];
-  //
-  //   // create tr, append to table
-  //   let row = document.createElement("tr");
-  //   if (accountsTable.children || accountsTable.children === 0) {
-  //     row.innerHTML =
-  //       `<td class="table__cell--imagehldr">
-  //     <img class="cell--image" src="${account.image}" /></td>
-  //     <td class="table__cell--name">${account.name}</td>
-  //     <td class="table__cell--amount">${account.name}<br><span class="table__cell--value">${account.amount}</span></td>`;
-  //     accountsTable.appendChild(row);
-  //   } else {
-  //     row.innerHTML += "";
-  //   }
-  // },
-  // // Remake requests with GBP,USD, EUR in params,
-  // // append to prices and account vals
-  // toggleCurrency: () => {
-  //   console.log("toggleCurrency");
-  //
-  //   // Get currencySymbol from radio buttons
-  //   let currency = document.getElementsByClassName("currency")[0];
-  //   // Traversing may be better?? ***********************************
-  //   let currencySymbolToggle = document.querySelector(".currency__toggle input:checked~.currency__toggle--symbol");
-  //   let currencySymbol = currencySymbolToggle.innerHTML;
-  //   // Add symbol to amount ***********************************
-  //   for (let i = 0; i < outputs.length; i++) {
-  //     outputs[i].innerHTML = currencySymbol.concat(outputs[i].innerHTML);
-  //   }
-  //
-  //   // Change symbols on page when radio button selected changes
-  //   currency.addEventListener("change", function(e) {
-  //     // input symbol
-  //     currencySymbol = e.path[1].children[1].innerHTML;
-  //     console.log(currencySymbol);
-  //     for (i = 0; i < outputs.length; i++) {
-  //       // remove existing symbol from val first, then add new one
-  //       outputs[i].innerHTML = currencySymbol.concat(outputs[i].innerHTML);
-  //     }
-  //   });
-  //
-  // },
-  // // get selected symbol from radio buttons and return code
-  // getSymbol: (sym) => {
-  //   switch (sym) {
-  //     case "$":
-  //       return "USD";
-  //       break;
-  //     case "£":
-  //       return "GBP";
-  //       break;
-  //     case "€":
-  //       return "EUR";
-  //       break;
-  //     default:
-  //       return "USD";
-  //       break;
-  //   }
-  //
-  // },
-  // // x * y = output
-  // calc: (crypto, outputClass) => {
-  //   let output = document.getElementsByClassName(output);
-  //   // If value in output is not a number, display currency value of 1 coin
-  //   if (Number.isNaN(parseFloat(target.value))) {
-  //     product.innerHTML = crypto.amount;
-  //   } else {
-  //     // Convert value to string
-  //     let outputVal = parseFloat(target.value * crypto.amount).toString();
-  //     // return only the first 5 characters
-  //     product.innerHTML = outputVal.substring(0, 5);
-  //   }
-  // },
+  buildAccountsTable: (account) => {
+    // append to accounts table, display 3 accounts and more on btn toggle
+    let accountsTable = document.getElementsByClassName("accounts")[0];
+
+    // create tr, append to table
+    let row = document.createElement("tr");
+    if (accountsTable.children || accountsTable.children === 0) {
+      row.innerHTML =
+        `<td class="table__cell--imagehldr">
+      <img class="cell--image" src="${account.image}" /></td>
+      <td class="table__cell--name">${account.name}</td>
+      <td class="table__cell--amount">${account.name}<br><span class="table__cell--value">${account.amount}</span></td>`;
+      accountsTable.appendChild(row);
+    } else {
+      row.innerHTML += "";
+    }
+  },
+  // Remake requests with GBP,USD, EUR in params,
+  // append to prices and account vals
+  toggleCurrency: () => {
+    console.log("toggleCurrency");
+
+    // Get currencySymbol from radio buttons
+    let currency = document.getElementsByClassName("currency")[0];
+    // Traversing may be better?? ***********************************
+    let currencySymbolToggle = document.querySelector(".currency__toggle input:checked~.currency__toggle--symbol");
+    let currencySymbol = currencySymbolToggle.innerHTML;
+    // Add symbol to amount ***********************************
+    for (let i = 0; i < outputs.length; i++) {
+      outputs[i].innerHTML = currencySymbol.concat(outputs[i].innerHTML);
+    }
+
+    // Change symbols on page when radio button selected changes
+    currency.addEventListener("change", function(e) {
+      // input symbol
+      currencySymbol = e.path[1].children[1].innerHTML;
+      console.log(currencySymbol);
+      for (i = 0; i < outputs.length; i++) {
+        // remove existing symbol from val first, then add new one
+        outputs[i].innerHTML = currencySymbol.concat(outputs[i].innerHTML);
+      }
+    });
+
+  },
+  // get selected symbol from radio buttons and return code
+  getSymbol: (sym) => {
+    switch (sym) {
+      case "$":
+        return "USD";
+        break;
+      case "£":
+        return "GBP";
+        break;
+      case "€":
+        return "EUR";
+        break;
+      default:
+        return "USD";
+        break;
+    }
+
+  },
+  // x * y = output
+  calc: (crypto, outputClass) => {
+    let output = document.getElementsByClassName(output);
+    // If value in output is not a number, display currency value of 1 coin
+    if (Number.isNaN(parseFloat(target.value))) {
+      product.innerHTML = crypto.amount;
+    } else {
+      // Convert value to string
+      let outputVal = parseFloat(target.value * crypto.amount).toString();
+      // return only the first 5 characters
+      product.innerHTML = outputVal.substring(0, 5);
+    }
+  },
 };
 
 cc.init();

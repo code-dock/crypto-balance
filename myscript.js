@@ -44,7 +44,6 @@ let cc = {
   },
   // moves between login screen and accounts
   changeScreen: () => {
-    console.log("changeScreen");
     let signinContent = document.body.children[0];
     let extensionContent = document.body.children[1];
     let footer = document.body.children[2];
@@ -158,14 +157,13 @@ let cc = {
                   })
                 .then(response => response.json())
                 .then(obj => {
-                  console.log("Let's refresh");
                   // On successful POST request   ???? ******
 
                   cc.isLoggedIn = true;
                   // Store ACCESS_TOKEN and REFRESH_TOKEN
                   localStorage.setItem(cc.refresh_token, obj.refresh_token);
-                  cc.refreshToken = localStorage.getItem(cc.refresh_token);
                   localStorage.setItem(cc.access_token, obj.access_token);
+                  cc.refreshToken = localStorage.getItem(cc.refresh_token);
                   cc.accessToken = localStorage.getItem(cc.access_token);
 
                   cc.getAccounts();
@@ -180,27 +178,6 @@ let cc = {
     };
   },
   getAccounts: () => {
-    // get icon relevant to asset
-    function getThumbnail(abr) {
-      switch (abr) {
-        case "BCH":
-          return "bch.png";
-        case "ZRX":
-          return "zrx.png";
-        case "LTC":
-          return "ltc.png";
-        case "ETH":
-          return "eth.png";
-        case "ETC":
-          return "etc.png";
-        case "BTC":
-          return "btc.png";
-        default:
-          return "bat.png";
-          break;
-      }
-    }
-    // console.log(cc.fetchData.accounts.headers);
     fetch(cc.fetchData.accounts.url, {
         headers: {
           "Authorization": "Bearer " + cc.accessToken,
@@ -208,10 +185,10 @@ let cc = {
       })
       .then(response => response.json())
       .then(obj => {
-        // response.data returns array of numbers, each is an account
+        // obj.data returns array of numbers, each is an account
         let data = obj.data;
         let arr = [];
-        // create object (objects are not called crypto in dataSelected)
+
         for (let i = 0; i < data.length; i++) {
           let crypto = {
             image: `./node_modules/cryptocurrency-icons/32/color/${getThumbnail(data[i].currency.code)}`,
@@ -223,21 +200,38 @@ let cc = {
           arr.push(crypto);
         }
 
-        for (let i = 0; i < cc.displayed.length; i++) {
-          for (let j = 0; j < dataSelected.length; j++) {
-            if (dataSelected[j].code.indexOf(cc.SELECTED[i]) > -1) {
-              // NEEDS Argument *********
-              cc.buildAccountsTable(dataSelected[j]);
+        for (let j = 0; j < cc.displayed.length; j++) {
+          for (let k = 0; k < arr.length; k++) {
+            if (arr[k].code.indexOf(cc.displayed[j]) > -1) {
+              cc.appendToAccountsTable(arr[k]);
             }
           }
         }
 
-        appendToAccountsTable
-        console.log(obj);
       });
+
+      // get icon relevant to asset
+      function getThumbnail(abr) {
+        switch (abr) {
+          case "BCH":
+            return "bch.png";
+          case "ZRX":
+            return "zrx.png";
+          case "LTC":
+            return "ltc.png";
+          case "ETH":
+            return "eth.png";
+          case "ETC":
+            return "etc.png";
+          case "BTC":
+            return "btc.png";
+          default:
+            return "bat.png";
+            break;
+        }
+      }
   },
   getPrices: () => {
-    console.log("getPrices");
 
     let outputs = document.getElementsByClassName("table__cell--output");
     let names = document.getElementsByClassName("table__cell--assetname");
@@ -277,7 +271,7 @@ let cc = {
     if (table.children || table.children === 0) {
       row.innerHTML =
         `<td class="table__cell--imagehldr">
-      <img class="cell--image" src="${getThumbnail(account.image)}" /></td>
+      <img class="cell--image" src="${account.image}" /></td>
       <td class="table__cell--name">${account.name}</td>
       <td class="table__cell--amount">${account.name}<br><span class="table__cell--value">${account.amount}</span></td>`;
       table.appendChild(row);
