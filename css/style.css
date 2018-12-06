@@ -66,16 +66,13 @@ body {
 
 .signin__jack {
   display: inline-block;
-  text-decoration: none;
-  color: inherit;
-  font-size: 18px;
-  font-weight: 600;
-  transition: all .1s ease-in-out;
-  letter-spacing: 1px;
-  font-family: sans-serif;
-  position: relative;
-  top: 205px;
-  z-index: 1003;
+      text-decoration: none;
+      color: inherit;
+      transition: all .1s ease-in-out;
+      font-family: sans-serif;
+      position: relative;
+      top: 205px;
+      z-index: 1003;
 }
 
 .signin__jack:hover {

@@ -79,6 +79,27 @@ let cc = {
     }
     // return new value
   },
+  // x * y = output
+  multiply: (crypto, mult, output) => {
+    let output = document.getElementsByClassName(output);
+      let outputVal = (mult.value * crypto.amount).toString();
+      // return only the first 5 characters
+      output.innerHTML += outputVal.substring(0, 5);
+  },
+
+  // x * y = output
+  multiplier: (crypto, mult, product) => {
+    let product = document.getElementsByClassName(product);
+    // If value in output is not a number, display currency value of 1 coin
+    if (Number.isNaN(parseFloat(target.value))) {
+      product.innerHTML = crypto.amount;
+    } else {
+      // Convert value to string
+      let outputVal = parseFloat(target.value * crypto.amount).toString();
+      // return only the first 5 characters
+      product.innerHTML = outputVal.substring(0, 5);
+    }
+  },
   fetchData: {
     accounts: {
       url: "https://api.coinbase.com/v2/accounts",
@@ -178,6 +199,27 @@ let cc = {
     };
   },
   getAccounts: () => {
+          // get icon relevant to asset
+          function getThumbnail(abr) {
+            switch (abr) {
+              case "BCH":
+                return "bch.png";
+              case "ZRX":
+                return "zrx.png";
+              case "LTC":
+                return "ltc.png";
+              case "ETH":
+                return "eth.png";
+              case "ETC":
+                return "etc.png";
+              case "BTC":
+                return "btc.png";
+              default:
+                return "bat.png";
+                break;
+            }
+          }
+
     fetch(cc.fetchData.accounts.url, {
         headers: {
           "Authorization": "Bearer " + cc.accessToken,
@@ -209,27 +251,6 @@ let cc = {
         }
 
       });
-
-      // get icon relevant to asset
-      function getThumbnail(abr) {
-        switch (abr) {
-          case "BCH":
-            return "bch.png";
-          case "ZRX":
-            return "zrx.png";
-          case "LTC":
-            return "ltc.png";
-          case "ETH":
-            return "eth.png";
-          case "ETC":
-            return "etc.png";
-          case "BTC":
-            return "btc.png";
-          default:
-            return "bat.png";
-            break;
-        }
-      }
   },
   getPrices: () => {
 
@@ -248,17 +269,19 @@ let cc = {
 
         // compare items in both arrays and build a new array
         for (let i = 0; i < cc.displayed.length; i++) {
-          for (let j = 0; j < arr.length; j++) {
-            if (arr[j].code.indexOf(cc.displayed[i]) > -1) {
+          for (let j = 0; j < keys.length; j++) {
+            if (keys[j].indexOf(cc.displayed[i]) > -1) {
               let crypto = {
-                name: key,
+                name: keys[i],
                 amount: vals[i],
               }
               arr.push(crypto);
             } // END If crypto is in data array
-          } // END data array
+          } // END data array Loop
         } // END cc.displayed loop
 
+
+        console.log(arr);
       }); // END then clause
   },
 
@@ -273,7 +296,7 @@ let cc = {
         `<td class="table__cell--imagehldr">
       <img class="cell--image" src="${account.image}" /></td>
       <td class="table__cell--name">${account.name}</td>
-      <td class="table__cell--amount">${account.name}<br><span class="table__cell--value">${account.amount}</span></td>`;
+      <td class="table__cell--amount"><span class="table__cell--curr">${account.name}</span><br><span class="table__cell--value">${account.amount}</span></td>`;
       table.appendChild(row);
     } else {
       row.innerHTML += "";
