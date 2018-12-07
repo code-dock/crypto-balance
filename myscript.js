@@ -60,46 +60,56 @@ let cc = {
 
     }
   },
+  // Get currencySymbol from radio buttons
   changeCurrency: () => {
+    let checkedSymbol = document.querySelector(".currency__toggle input:checked~.currency__toggle--symbol");
+    let symbol = getSymbol(checkedSymbol.innerHTML);
     function getSymbol(sym) {
       switch (sym) {
-        case "$":
-          return "USD";
+        case "USD":
+          return "US$";
           break;
-        case "£":
-          return "GBP";
+        case "GBP":
+          return "£";
           break;
-        case "€":
-          return "EUR";
+        case "EUR":
+          return "€";
           break;
         default:
-          return "USD";
+          return "US$";
           break;
       }
     }
-    // return new value
+    return symbol;
   },
   // x * y = output
-  multiply: (crypto, mult, output) => {
-    let output = document.getElementsByClassName(output);
-      let outputVal = (mult.value * crypto.amount).toString();
-      // return only the first 5 characters
-      output.innerHTML += outputVal.substring(0, 5);
+  multiply: (input) => {
+    fetch(cc.fetchData.prices.url + "USD")
+      .then(response => response.json())
+      .then(obj => {
+        // Show rates of selected currency
+        let rates = obj.data.rates;
+        let arr = [];
+        // Keys/Values from rates
+        const keys = Object.keys(rates);
+        const vals = Object.values(rates);
+
+        // compare items in both arrays and build a new array
+        for (let i = 0; i < cc.displayed.length; i++) {
+          for (let j = 0; j < keys.length; j++) {
+            if (keys[j].indexOf(cc.displayed[i]) > -1) {
+              let crypto = {
+                amount: vals[i],
+              }
+              arr.push(crypto);
+              return input.amount * arr[i].amount;
+            } // END If crypto is in data array
+          } // END data array Loop
+        } // END cc.displayed loop
+
+      }); // END then clause
   },
 
-  // x * y = output
-  multiplier: (crypto, mult, product) => {
-    let product = document.getElementsByClassName(product);
-    // If value in output is not a number, display currency value of 1 coin
-    if (Number.isNaN(parseFloat(target.value))) {
-      product.innerHTML = crypto.amount;
-    } else {
-      // Convert value to string
-      let outputVal = parseFloat(target.value * crypto.amount).toString();
-      // return only the first 5 characters
-      product.innerHTML = outputVal.substring(0, 5);
-    }
-  },
   fetchData: {
     accounts: {
       url: "https://api.coinbase.com/v2/accounts",
@@ -164,7 +174,6 @@ let cc = {
 
           cc.changeScreen();
           cc.getAccounts();
-          cc.getPrices();
 
           // Set timeout of time until tokens expire
           function refresh() {
@@ -188,7 +197,6 @@ let cc = {
                   cc.accessToken = localStorage.getItem(cc.access_token);
 
                   cc.getAccounts();
-                  cc.getPrices();
 
                 }); // END then exchange tokens
             }, 6000); // END timeout
@@ -199,26 +207,26 @@ let cc = {
     };
   },
   getAccounts: () => {
-          // get icon relevant to asset
-          function getThumbnail(abr) {
-            switch (abr) {
-              case "BCH":
-                return "bch.png";
-              case "ZRX":
-                return "zrx.png";
-              case "LTC":
-                return "ltc.png";
-              case "ETH":
-                return "eth.png";
-              case "ETC":
-                return "etc.png";
-              case "BTC":
-                return "btc.png";
-              default:
-                return "bat.png";
-                break;
-            }
-          }
+    // get icon relevant to asset
+    function getThumbnail(abr) {
+      switch (abr) {
+        case "BCH":
+          return "bch.png";
+        case "ZRX":
+          return "zrx.png";
+        case "LTC":
+          return "ltc.png";
+        case "ETH":
+          return "eth.png";
+        case "ETC":
+          return "etc.png";
+        case "BTC":
+          return "btc.png";
+        default:
+          return "bat.png";
+          break;
+      }
+    }
 
     fetch(cc.fetchData.accounts.url, {
         headers: {
@@ -227,6 +235,7 @@ let cc = {
       })
       .then(response => response.json())
       .then(obj => {
+        console.log(obj);
         // obj.data returns array of numbers, each is an account
         let data = obj.data;
         let arr = [];
@@ -236,6 +245,7 @@ let cc = {
             image: `./node_modules/cryptocurrency-icons/32/color/${getThumbnail(data[i].currency.code)}`,
             name: data[i].name,
             amount: `${data[i].balance.amount} ${data[i].currency.code}`,
+            curr: `${cc.multiply(data[i].balance.amount)}`,
             code: data[i].currency.code,
           }
           // push objects to list
@@ -257,7 +267,15 @@ let cc = {
     let outputs = document.getElementsByClassName("table__cell--output");
     let names = document.getElementsByClassName("table__cell--assetname");
 
-    fetch(cc.fetchData.prices.url + "USD")
+    // Change symbols on page when radio button selected changes
+    let currency = document.getElementsByClassName("currency")[0];
+    let currencySymbol = null;
+    currency.addEventListener("change", function(e) {
+      currencySymbol = cc.changeCurrency();
+      console.log(currencySymbol);
+    });
+
+    fetch(cc.fetchData.prices.url + currencySymbol)
       .then(response => response.json())
       .then(obj => {
         // Show rates of selected currency
@@ -281,7 +299,6 @@ let cc = {
         } // END cc.displayed loop
 
 
-        console.log(arr);
       }); // END then clause
   },
 
@@ -296,7 +313,7 @@ let cc = {
         `<td class="table__cell--imagehldr">
       <img class="cell--image" src="${account.image}" /></td>
       <td class="table__cell--name">${account.name}</td>
-      <td class="table__cell--amount"><span class="table__cell--curr">${account.name}</span><br><span class="table__cell--value">${account.amount}</span></td>`;
+      <td class="table__cell--amount"><span class="table__cell--curr">${account.curr}</span><br><span class="table__cell--value">${account.amount}</span></td>`;
       table.appendChild(row);
     } else {
       row.innerHTML += "";
