@@ -153,7 +153,7 @@ body {
   width: 35px;
 }
 
-.table__cell--name {
+.table__cell--wallet {
   letter-spacing: 1px;
   text-align: left;
   padding: 20px 0;
@@ -163,20 +163,20 @@ body {
   padding-top: 25px;
 }
 
-.table__cell--amount {
+.table__cell--worth {
   width: 160px;
   text-align: right;
   padding-right: 15px;
 }
 
-.table__cell--value {
+.table__cell--quantity {
   color: #777;
   line-height: 1.8;
   display: inline-block;
   position: relative;
 }
 
-.table__cell--value::after {
+.table__cell--quantity::after {
   content: "";
   position: absolute;
   top: 40px;

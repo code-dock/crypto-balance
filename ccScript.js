@@ -3,55 +3,48 @@ let cc = {
   CLIENT_ID: "ce5a268500cd300dd697e9419ba4800d1236477c1b77f1b4c043dee5266dfa29",
   REDIRECT_URI: "https://murphyme.co.uk/success",
 
-  displayed: ["BCH", "BTC", "ETC", "ETH", "LTC", "ZRX"],
-  cbObj: [
-    {
+  // displayed: ["BCH", "BTC", "ETC", "ETH", "LTC", "ZRX"],
+  cbArr: [{
       code: "BCH",
       walName: "",
+      icon: "",
       qty: null,
       val: null,
-      img: "",
-
     },
     {
       code: "BTC",
       walName: "",
+      icon: "",
       qty: null,
       val: null,
-      img: "",
-
     },
     {
       code: "ETC",
       walName: "",
+      icon: "",
       qty: null,
       val: null,
-      img: "",
-
     },
     {
       code: "ETH",
       walName: "",
+      icon: "",
       qty: null,
       val: null,
-      img: "",
-
     },
     {
       code: "LTC",
       walName: "",
+      icon: "",
       qty: null,
       val: null,
-      img: "",
-
     },
     {
       code: "ZRX",
       walName: "",
+      icon: "",
       qty: null,
       val: null,
-      img: "",
-
     },
   ],
   authorization_code: "authorization_code",
@@ -84,7 +77,7 @@ let cc = {
 
   // shows 'about' modal
   modal: () => {
-    const aboutButton = document.getElementById("aboutButton");
+    let aboutButton = document.getElementById("aboutButton");
     aboutButton.addEventListener("click", function(e) {
       e.preventDefault();
       let parent = e.target.parentNode;
@@ -92,6 +85,7 @@ let cc = {
       auntie.classList.toggle("top");
     });
   },
+
   // moves between login screen and accounts
   changeScreen: () => {
     let signinContent = document.body.children[0];
@@ -110,6 +104,7 @@ let cc = {
 
     }
   },
+
   // Get currencySymbol from radio buttons
   changeCurrency: () => {
     let checkedSymbol = document.querySelector(".currency__toggle input:checked~.currency__toggle--symbol");
@@ -133,32 +128,10 @@ let cc = {
     }
     return symbol;
   },
+
   // x * y = output
-  multiply: (input) => {
-    fetch(cc.fetchData.prices.url + "USD")
-      .then(response => response.json())
-      .then(obj => {
-        // Show rates of selected currency
-        let rates = obj.data.rates;
-        let arr = [];
-        // Keys/Values from rates
-        const keys = Object.keys(rates);
-        const vals = Object.values(rates);
-
-        // compare items in both arrays and build a new array
-        for (let i = 0; i < cc.displayed.length; i++) {
-          for (let j = 0; j < keys.length; j++) {
-            if (keys[j].indexOf(cc.displayed[i]) > -1) {
-              let crypto = {
-                amount: vals[i],
-              }
-              arr.push(crypto);
-              return input.amount * arr[i].amount;
-            } // END If crypto is in data array
-          } // END data array Loop
-        } // END cc.displayed loop
-
-      }); // END then clause
+  multiply: (a, b) => {
+    return a * b;
   },
 
   fetchData: {
@@ -218,48 +191,102 @@ let cc = {
         .then(obj => {
           cc.isLoggedIn = true;
           // Store ACCESS_TOKEN and REFRESH_TOKEN
-          localStorage.setItem(cc.refresh_token, obj.refresh_token);
           localStorage.setItem(cc.access_token, obj.access_token);
-          cc.refreshToken = localStorage.getItem(cc.refresh_token);
+          localStorage.setItem(cc.refresh_token, obj.refresh_token);
           cc.accessToken = localStorage.getItem(cc.access_token);
+          cc.refreshToken = localStorage.getItem(cc.refresh_token);
 
-          cc.changeScreen();
-          cc.getAccounts();
 
-          // Set timeout of time until tokens expire
-          function refresh() {
-            setInterval(() => {
-              fetch("https://api.coinbase.com/oauth/token" +
-                  "?grant_type=refresh_token" +
-                  "&refresh_token=" + cc.refreshToken +
-                  "&client_id=" + cc.CLIENT_ID +
-                  "&client_secret=" + cc.CLIENT_SECRET, {
-                    method: "POST",
-                  })
-                .then(response => response.json())
-                .then(obj => {
-                  // On successful POST request   ???? ******
-
-                  cc.isLoggedIn = true;
-                  // Store ACCESS_TOKEN and REFRESH_TOKEN
-                  localStorage.setItem(cc.refresh_token, obj.refresh_token);
-                  localStorage.setItem(cc.access_token, obj.access_token);
-                  cc.refreshToken = localStorage.getItem(cc.refresh_token);
-                  cc.accessToken = localStorage.getItem(cc.access_token);
-
-                  cc.getAccounts();
-
-                }); // END then exchange tokens
-            }, 6000); // END timeout
-          }
-          refresh();
+          setInterval(() => {
+            console.log("int");
+            cc.refresh();
+          }, 6000); // END setInterval
 
         }); // END then handle obj
     };
   },
+  // Set timeout of time until tokens expire
+  refresh: () => {
+    fetch("https://api.coinbase.com/oauth/token" +
+        "?grant_type=refresh_token" +
+        "&refresh_token=" + cc.refreshToken +
+        "&client_id=" + cc.CLIENT_ID +
+        "&client_secret=" + cc.CLIENT_SECRET, {
+          method: "POST",
+        })
+      .then(response => response.json())
+      .then(obj => {
+        // On successful POST request   ???? ******
+
+        cc.isLoggedIn = true;
+        // Store ACCESS_TOKEN and REFRESH_TOKEN
+        localStorage.setItem(cc.refresh_token, obj.refresh_token);
+        localStorage.setItem(cc.access_token, obj.access_token);
+        cc.refreshToken = localStorage.getItem(cc.refresh_token);
+        cc.accessToken = localStorage.getItem(cc.access_token);
+
+        cc.changeScreen();
+        cc.getAccounts();
+        cc.getPrices();
+        cc.createAccountsRow();
+      }); // END then exchange tokens
+  },
+  getPrices: () => {
+    // Change symbols on page when radio button selected changes
+    let currency = document.getElementsByClassName("currency")[0];
+    let currencySymbol = null;
+    currency.addEventListener("change", function(e) {
+      currencySymbol = cc.changeCurrency();
+    });
+
+    // fetch(cc.fetchData.prices.url + currencySymbol)
+    fetch(cc.fetchData.prices.url + "USD")
+      .then(response => response.json())
+      .then(obj => {
+        // Show rates of selected currency
+        let rates = obj.data.rates;
+        // Keys/Values from rates
+        const keys = Object.keys(rates);
+        const vals = Object.values(rates);
+
+        // compare items in both arrays and build a new array
+        for (let i = 0; i < cc.cbArr.length; i++) {
+          for (let j = 0; j < keys.length; j++) {
+            if (keys[j].indexOf(cc.cbArr[i].code) > -1) {
+              cc.cbArr[i].val = vals[j];
+            } // END If crypto is in data array
+          } // END data array Loop
+        } // END cc.displayed loop
+
+      }); // END then clause
+  },
   getAccounts: () => {
+    fetch(cc.fetchData.accounts.url, {
+        headers: {
+          "Authorization": "Bearer " + cc.accessToken,
+        },
+      })
+      // fetch(cc.fetchData.prices.url + currencySymbol)
+      .then(response => response.json())
+      .then(obj => {
+        // Show rates of selected currency
+        let data = obj.data;
+
+        // compare items in both arrays and build a new array
+        for (let i = 0; i < cc.cbArr.length; i++) {
+          for (let j = 0; j < data.length; j++) {
+
+            if (data[j].currency.code.indexOf(cc.cbArr[i].code) > -1) {
+              cc.cbArr[i].walName = data[j].name;
+              cc.cbArr[i].icon = `./node_modules/cryptocurrency-icons/32/color/${getIcon(data[j].currency.code)}`;
+              cc.cbArr[i].qty = `${data[j].balance.amount}`;
+            } // END If crypto is in data array
+          } // END data array Loop
+        } // END cc.displayed loop
+      }); // END then clause
+
     // get icon relevant to asset
-    function getThumbnail(abr) {
+    function getIcon(abr) {
       switch (abr) {
         case "BCH":
           return "bch.png";
@@ -273,104 +300,30 @@ let cc = {
           return "etc.png";
         case "BTC":
           return "btc.png";
+        case "USDC":
+          return "usdc.png";
         default:
           return "bat.png";
           break;
       }
-    }
+    };
 
-    fetch(cc.fetchData.accounts.url, {
-        headers: {
-          "Authorization": "Bearer " + cc.accessToken,
-        },
-      })
-      .then(response => response.json())
-      .then(obj => {
-        console.log(obj);
-        // obj.data returns array of numbers, each is an account
-        let data = obj.data;
-        // let arr = [];
-
-        for (let i = 0; i < data.length; i++) {
-          let crypto = {
-            image: `./node_modules/cryptocurrency-icons/32/color/${getThumbnail(data[i].currency.code)}`,
-            walName: data[i].name,
-            qty: `${data[i].balance.amount} ${data[i].currency.code}`,
-            curr: `${cc.multiply(data[i].balance.amount)}`,
-            code: data[i].currency.code,
-          }
-          // push objects to list
-          arr.push(crypto);
-        }
-
-
-        for (let j = 0; j < cc.displayed.length; j++) {
-          for (let k = 0; k < arr.length; k++) {
-            if (arr[k].code.indexOf(cc.displayed[j]) > -1) {
-              cc.appendToAccountsTable(arr[k]);
-            }
-          }
-        }
-
-      });
-  },
-  getPrices: () => {
-
-    let outputs = document.getElementsByClassName("table__cell--output");
-    let names = document.getElementsByClassName("table__cell--assetname");
-
-    // Change symbols on page when radio button selected changes
-    let currency = document.getElementsByClassName("currency")[0];
-    let currencySymbol = null;
-    currency.addEventListener("change", function(e) {
-      currencySymbol = cc.changeCurrency();
-      console.log(currencySymbol);
-    });
-
-    fetch(cc.fetchData.prices.url + currencySymbol)
-      .then(response => response.json())
-      .then(obj => {
-        // Show rates of selected currency
-        let rates = obj.data.rates;
-        let arr = [];
-        // Keys/Values from rates
-        const keys = Object.keys(rates);
-        const vals = Object.values(rates);
-
-        // compare items in both arrays and build a new array
-        for (let i = 0; i < cc.displayed.length; i++) {
-          for (let j = 0; j < keys.length; j++) {
-            if (keys[j].indexOf(cc.displayed[i]) > -1) {
-              let crypto = {
-                name: keys[i],
-                amount: vals[i],
-              }
-              arr.push(crypto);
-            } // END If crypto is in data array
-          } // END data array Loop
-        } // END cc.displayed loop
-
-
-      }); // END then clause
   },
 
-  appendToAccountsTable: (account) => {
-    // append to accounts table, display 3 accounts and more on btn toggle
-    let table = document.getElementsByClassName("accounts")[0];
-
+  createAccountsRow: () => {
+    console.log("code:", cc.cbArr[2].code);
+    console.log("qty:", cc.cbArr[2].qty);
+    console.log("val:", cc.cbArr[2].val);
     // create tr, append to table
     let row = document.createElement("tr");
-    if (table.children || table.children === 0) {
-      row.innerHTML =
-        `<td class="table__cell--imagehldr">
-      <img class="cell--image" src="${account.image}" /></td>
-      <td class="table__cell--name">${account.name}</td>
-      <td class="table__cell--amount"><span class="table__cell--curr">${account.curr}</span><br><span class="table__cell--value">${account.amount}</span></td>`;
-      table.appendChild(row);
-    } else {
-      row.innerHTML += "";
-    }
-
+    row.innerHTML =
+      `<td class="table__cell--imagehldr">
+      <img class="cell--image" src=${cc.cbArr[2].icon} /> </td>
+      <td class="table__cell--wallet"> ${cc.cbArr[2].walName} </td>
+      <td class="table__cell--worth">
+      <span class="table__cell--value">${cc.cbArr[2].val}</span><br>
+      <span class="table__cell--quantity">${cc.cbArr[2].qty}</span></td>`;
+    // return row;
   },
-}
-cc.init();
+};
+document.body.addEventListener("DOMContentLoaded", cc.init());
